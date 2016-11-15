@@ -1,0 +1,19 @@
+{
+  "name": "food-track",
+  "version": "1.0.0",
+  "description": "Food-track is an tool designed to facilitate diet tracking via a food diary.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "diet",
+    "diary",
+    "nutrition"
+  ],
+  "author": "Maria Tamayo",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
