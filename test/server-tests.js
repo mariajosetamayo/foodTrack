@@ -19,3 +19,39 @@ describe('main page', function(){
         });
     });
 });
+
+describe('signup page', function(){
+    it('exists', function(done){
+        chai.request(app)
+        .get('/')
+        .end(function(err,res){
+            res.should.have.status(200);
+            res.should.be.html;
+            done();
+        });
+    });
+});
+
+describe('add food page', function(){
+    it('exists', function(done){
+        chai.request(app)
+        .get('/')
+        .end(function(err,res){
+            res.should.have.status(200);
+            res.should.be.html;
+            done();
+        });
+    });
+});
+
+describe('report page', function(){
+    it('exists', function(done){
+        chai.request(app)
+        .get('/')
+        .end(function(err,res){
+            res.should.have.status(200);
+            res.should.be.html;
+            done();
+        });
+    });
+});
