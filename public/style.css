@@ -110,12 +110,27 @@ body {
  */
 
 .cover {
-  padding: 257px 20px;
+  padding: 360px 20px;
 }
 .cover .btn-lg {
   padding: 10px 20px;
   font-weight: bold;
 }
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+  margin: 5rem 0; /* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -.05rem;
+}
+
 
 
 /*
@@ -159,5 +174,18 @@ body {
   .mastfoot,
   .cover-container {
     width: 700px;
+  }
+}
+
+@media (min-width: 40em) {
+  
+  .featurette-heading {
+    font-size: 50px;
+  }
+}
+
+@media (min-width: 62em) {
+  .featurette-heading {
+    margin-top: 7rem;
   }
 }

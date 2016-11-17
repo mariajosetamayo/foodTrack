@@ -1,0 +1,14 @@
+.addFoodForm{
+    margin-top: 20%;
+}
+
+.ui-datepicker {
+   background: #CDCDCD;
+   color: #EEE;
+   position: relative;
+   top: 7px;
+ }
+ 
+.foodInfo{
+  margin-top: 8%;
+}
