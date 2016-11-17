@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+var bcrypt = require('bcryptjs');
+
 
 ///// User schemas ///////
 
@@ -12,6 +14,16 @@ var UserSchema = mongoose.Schema({
 // User variable declared according to schema
 
 var User = mongoose.model('User', UserSchema);
+
+// UserSchema.methods.validatePassword = function(password, callback) { // bcrypt.compare method checks password against stored hash +salt
+//     bcrypt.compare(password, this.password, function(err, isValid) {
+//         if (err) {
+//             callback(err);
+//             return;
+//         }
+//         callback(null, isValid);
+//     });
+// };
 
 ///// Exports /////
 

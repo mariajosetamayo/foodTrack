@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var User = require('./models/users');
 var passport = require('passport');
 var BasicStrategy = require('passport-http').BasicStrategy;
+var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 
 var config = require('./config');
@@ -11,7 +12,6 @@ var config = require('./config');
 var app = express();
 
 app.use(bodyParser.json());
-//app.use(express.static('public'));
 app.use(express.static(__dirname + '/public'));
 
 
@@ -40,43 +40,45 @@ if (require.main === module) {
 
 ////// Passport //////
 
-//Passport basic strategy fetches user which matches username provided. 
-var strategy = new BasicStrategy(function(username, password, callback) {
-    User.findOne({
-        username: username
-    }, function (err, user) {
-        if (err) {
-            callback(err);
-            return;
-        }
-
-        if (!user) {
-            return callback(null, false, {
-                message: 'Incorrect username.'
-            });
-        }
-
-        user.validatePassword(password, function(err, isValid) {
-            if (err) {
-                return callback(err);
-            }
-
-            if (!isValid) {
-                return callback(null, false, {
-                    message: 'Incorrect password.'
-                });
-            }
-            return callback(null, user);
-        });
-    });
+app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser(function(user, done) {
+  done(null, user);
 });
 
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+//Passport local strategy fetches user which matches username provided. 
+// 
+var strategy = new LocalStrategy(
+    function(username, password, done) {
+        User.findOne({ username: username }, function (err, user) {
+            console.log("this is the user", user)
+            if (err) { 
+                return done(err); 
+            }
+            if (!user) {
+                return done(null, false, { message: 'Incorrect username.' });
+            }
+            bcrypt.compare(password, user.password, function(error, response){
+                if (response === true){
+                    return done(null,user)
+                }
+                else {
+                    return done(null, false)
+                }
+            })
+        });
+    }
+);
 
 // var app = express();
 var jsonParser = bodyParser.json();
 
 passport.use(strategy);
-app.use(passport.initialize());
+
 
 
 // Endpoint para home -> que haga render de home
@@ -108,11 +110,32 @@ app.get('/report',function(req,res){
 
 
 // Endpoint which is protected by strategy so it requires a valid username and password
-app.get('/signin', passport.authenticate('basic', {session: false}), function(req, res) {
-    res.json({
-        message: 'Luke... I am your father'
-    });
-});
+// app.get('/signin', passport.authenticate('basic', {session: false}), function(req, res) {
+//     res.json({
+//         message: 'Luke... I am your father'
+//     });
+// });
+
+// Endpoint for login
+app.post('/login', function(req, res, next){
+    console.log("this is the request", req.body)
+    passport.authenticate('local', function(err, user, info) {
+        console.log("this is the user", user)
+        // user = req.body
+        if (err) { 
+            return next(err); 
+        }
+        if (!user) { 
+            return res.send({error : 'something went wrong :('}); 
+        }
+        req.logIn(user, function(err) {
+            if (err) { 
+                return next(err); 
+            }
+            return res.send({success:'success'});
+        });
+    }) (req, res, next);
+})
 
 
 // Endpoint for creating users  TODO: cambiar a sign up. 
@@ -199,7 +222,7 @@ app.post('/signup', jsonParser, function(req, res) {
                     });
                 }
                 console.log("AW YISS!!!")
-                return res.status(201).redirect('/user-home');
+                return res.status(201).json(user);
             });
         });
     });

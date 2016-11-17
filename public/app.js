@@ -20,7 +20,7 @@ $(document).ready(function(){
   var signUpButton = $('#signUpBtn');
   var signInButton = $('.signInBtn');
   var signinEmail = $('#signinEmailInput');
-  var signinPassword = $('signinPasswordInput')
+  var signinPassword = $('#signinPasswordInput')
   
   ////// Requests ///////
   
@@ -35,21 +35,24 @@ $(document).ready(function(){
         dataType: 'json',
         contentType: 'application/json'
     });
-    ajax.done(console.log('user successfully created'));
+    ajax.done(function(res){
+      console.log("this is the response", res)
+    });
   };
   
   var onSignIn = function (username, password){
-    console.log("this is firing")
     username = signinEmail.val();
     password = signinPassword.val();
-    var existingUser = {username:password};
-    var ajax = $.ajax('/signin', {
-        type: 'GET',
+    var existingUser = {'username': username, 'password':password};
+    var ajax = $.ajax('/login', {
+        type: 'POST',
         data: JSON.stringify(existingUser),
         dataType: 'json',
         contentType: 'application/json'
     });
-    ajax.done(console.log('user successfully signed in'));
+    ajax.done(function(res){
+      console.log("this is the response", res)
+    });
   }
   
   ////// Event Listeners ///////
@@ -57,11 +60,16 @@ $(document).ready(function(){
   signUpButton.click(function(event){
     event.preventDefault();
     onSignUp();
+    userNameInput.val('');
+    userEmailInput.val('');
+    userPasswordInput.val('');
   });
   
   signInButton.click(function(event){
     event.preventDefault();
     onSignIn();
+    signinPassword.val('');
+    signinEmail.val('');
   })
   
 
