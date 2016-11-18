@@ -32,7 +32,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.use(app.sessionMiddleware);
 
-
+///// Function for running the server //////
 
 var runServer = function(callback) {
     mongoose.connect(config.DATABASE_URL, function(err) {
@@ -57,7 +57,7 @@ if (require.main === module) {
     });
 };
 
-////// Passport //////
+////// Passport strategy setup //////
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -111,49 +111,29 @@ var jsonParser = bodyParser.json();
 
 passport.use(strategy);
 
+////// Endpoints //////
+
+//// Rendering Endpoints //////
+
 // Endpoint para home -> que haga render de home
 // index page 
 app.get('/', function(req, res) {
     res.render('pages/index');
 });
-
+// Endpoint for rendering user-home 
 app.get('/user-home/:username', app.isAuthenticated, function (req, res){
     res.render('pages/user-home', {username:req.user.username});
 });
-
+// Endpoint for rendering addfood page
 app.get('/addFood', function (req, res){
     res.render('pages/add-food');
 });
-
+// Endpoint for redenring signup
 app.get('/signup', function (req, res){
     res.render('pages/signup');
 })
 
-
-
-// Endpoint para signup -> que haga render de pag de sign up
-app.get('/signup', function(req,res){
-  res.sendFile(__dirname + '/public/signup.html');
-  console.log(__dirname)
-});
-
-// Endpoint para user home -> que haga render de pag de user home
-// app.get('/user-home',function(req,res){
-//   res.sendFile(__dirname + '/public/user-home.html');
-//   console.log(__dirname)
-// });
-
-// Endpoint para add food -> que haga render de pag de add food
-app.get('/addFood',function(req,res){
-  res.sendFile(__dirname + '/public/addFood.html');
-  console.log(__dirname)
-});
-// Endpoint para report -> que haga render de pag de report
-app.get('/report',function(req,res){
-  res.sendFile(__dirname + '/public/report.html');
-  console.log(__dirname)
-});
-
+////// Passport endpoints /////
 
 // Endpoint for login
 app.post('/login', function(req, res, next){
@@ -173,14 +153,12 @@ app.post('/login', function(req, res, next){
             }
             console.log("this is the username", req.user.username)
             return res.send({success:'success'});
-            // res.redirect('/user-home/' + req.user.username)
-            // return res.json(user);
         });
     }) (req, res, next);
 })
 
 
-// Endpoint for creating users  TODO: cambiar a sign up. 
+// Endpoint for creating users  
 app.post('/signup', jsonParser, function(req, res) {
     console.log("we are hitting the users endpoint and the request receiced is", req.body)
     if (!req.body) {
@@ -270,22 +248,72 @@ app.post('/signup', jsonParser, function(req, res) {
     });
 });
 
-
-
-
-//// GETS /////
-
-
-
 // logs present user out
-// cierra sesion del usuario
 app.get("/logout", function (req,res) {
     console.log('this is also doing something on logout in the server')
 	req.logOut()
 	res.redirect('/')
 });
 
+////// Endpoints for adding food ///////
 
+var Item = require('./models/food');
+
+// endpoint to get the meals
+app.get('/meals', function(req, res) {
+    Item.find(function(err, items) { //fetches a list of all the items from the DB using find. Returns json
+        if (err) {
+            return res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        }
+        res.status(200).json(items);
+    });
+});
+
+// enpoint to post a new meal
+app.post('/meals', function(req, res) {
+        Item.create({name: req.body.name, date: req.body.date, meal: req.body.meal}, 
+        function(err, items) {
+            if (err) {
+            return res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        }
+        res.status(201).json(items);
+    });
+});
+
+// enpoint to change a meal
+app.put('/meals/:id', function(req, res){
+        var queryID = {_id: req.params.id}
+        var updateItem = {name: req.body.name, _id: req.params.id}
+        console.log("UPDATED ITEM", updateItem)
+        Item.findOneAndUpdate(queryID, updateItem,
+        function(err, items){
+            if(err) {
+                return res.status(500).json({
+                message: 'Internal Server Error'});
+            }
+             console.log("UPDATED ITEM", updateItem)
+            res.status(201).json(updateItem)
+        });
+         console.log("UPDATED ITEM", updateItem)
+});
+
+// enpoint to delete a meal
+app.delete('/meals/:id', function(req, res){
+        var chosenItemID = {_id: req.params.id}
+        Item.findOneAndRemove({_id: req.params.id},
+        function(err, item){
+            if(err){
+                return res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        }
+        res.status(201).json(chosenItemID)
+    });
+});
 
 exports.app = app;
 exports.runServer = runServer;
@@ -305,3 +333,27 @@ exports.runServer = runServer;
 
 // Despues. 
 // un GET endpoint /user-days -> Query a meals, que seleccines los dates, Unique. 
+
+
+// Endpoint para signup -> que haga render de pag de sign up
+// app.get('/signup', function(req,res){
+//   res.sendFile(__dirname + '/public/signup.html');
+//   console.log(__dirname)
+// });
+
+// Endpoint para user home -> que haga render de pag de user home
+// app.get('/user-home',function(req,res){
+//   res.sendFile(__dirname + '/public/user-home.html');
+//   console.log(__dirname)
+// });
+
+// Endpoint para add food -> que haga render de pag de add food
+// app.get('/addFood',function(req,res){
+//   res.sendFile(__dirname + '/public/addFood.html');
+//   console.log(__dirname)
+// });
+// // Endpoint para report -> que haga render de pag de report
+// app.get('/report',function(req,res){
+//   res.sendFile(__dirname + '/public/report.html');
+//   console.log(__dirname)
+// });

@@ -1,6 +1,5 @@
 $(document).ready(function(){
-  console.log('yisss!!!')
-  
+ 
   /////// Variables to obtain elements from the DOM ///////
   
   var userNameInput = $('#inputName');
@@ -52,8 +51,6 @@ $(document).ready(function(){
     });
   }
   
-  
-  
   ////// Event Listeners ///////
   
   signUpButton.click(function(event){
@@ -70,16 +67,6 @@ $(document).ready(function(){
     signinPassword.val('');
     signinEmail.val('');
   })
-  
-  // logoutButton.click(function(event){
-  //     event.preventDefault();
-  //     console.log('this is doing something')
-  //     onLogout();
-  // })
-  
-
-
-
 
 })
 

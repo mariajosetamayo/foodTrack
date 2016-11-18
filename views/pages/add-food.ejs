@@ -13,7 +13,7 @@
         <h1>Add a Meal</h1>
         <div class="form-group">
           <label for="foodName">Food name and quantity</label>
-          <input type="text" class="form-control" id="examplefoodInput" aria-describedby="emailHelp" placeholder="Ex. 1 apple">
+          <input type="text" class="form-control" id="foodInput" aria-describedby="emailHelp" placeholder="Ex. 1 apple">
         </div>
         <div class="form-group">
           <label class="control-label" for="date">Date</label>
@@ -21,14 +21,14 @@
         </div>
         <div class="form-group">
           <label for="exampleSelect1">Meal type</label>
-          <select class="form-control" id="exampleSelect1">
+          <select class="form-control" id="mealType">
             <option>Breakfast</option>
             <option>Lunch</option>
             <option>Dinner</option>
             <option>Snack</option>
           </select>
         </div>
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" id = "saveBtn" class="btn btn-primary">Save</button>
       </form>
       <div class="jumbotron foodInfo">
         <h1><small>Food information</small></h1>
