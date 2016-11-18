@@ -5,3 +5,7 @@
 .list-group{
     margin-top: 5%;
 }
+
+.logoutBtn{
+    opacity: 0;
+}

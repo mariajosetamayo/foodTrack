@@ -3,16 +3,29 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var User = require('./models/users');
 var passport = require('passport');
-var BasicStrategy = require('passport-http').BasicStrategy;
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 
 var config = require('./config');
 
 var app = express();
+var session = require('express-session')
+
+// MIDDLEWARE SETUP
+
+app.sessionMiddleware = session({
+  secret: 'Maria Marcela Veronica Felicitas Emilia Ortiz Aveleyra Castillo Ortiz Mena',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 2628000000 },
+})
+
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
+
+app.use(app.sessionMiddleware);
+
 
 
 var runServer = function(callback) {
@@ -51,7 +64,7 @@ passport.deserializeUser(function(user, done) {
 });
 
 //Passport local strategy fetches user which matches username provided. 
-// 
+
 var strategy = new LocalStrategy(
     function(username, password, done) {
         User.findOne({ username: username }, function (err, user) {
@@ -79,8 +92,6 @@ var jsonParser = bodyParser.json();
 
 passport.use(strategy);
 
-
-
 // Endpoint para home -> que haga render de home
 app.get('/',function(req,res){
   res.sendFile('index.html');
@@ -90,31 +101,22 @@ app.get('/signup',function(req,res){
   res.sendFile(__dirname + '/public/signup.html');
   console.log(__dirname)
 });
-// Endpoint para user home -> que haga render de pag de sign up
-app.get('/user-home',function(req,res){
-  res.sendFile(__dirname + '/public/user-home.html');
-  console.log(__dirname)
-});
-// Endpoint para add food -> que haga render de pag de sign up
+// Endpoint para user home -> que haga render de pag de user home
+// app.get('/user-home',function(req,res){
+//   res.sendFile(__dirname + '/public/user-home.html');
+//   console.log(__dirname)
+// });
+// Endpoint para add food -> que haga render de pag de add food
 app.get('/addFood',function(req,res){
   res.sendFile(__dirname + '/public/addFood.html');
   console.log(__dirname)
 });
-// Endpoint para report -> que haga render de pag de sign up
+// Endpoint para report -> que haga render de pag de report
 app.get('/report',function(req,res){
   res.sendFile(__dirname + '/public/report.html');
   console.log(__dirname)
 });
 
-
-
-
-// Endpoint which is protected by strategy so it requires a valid username and password
-// app.get('/signin', passport.authenticate('basic', {session: false}), function(req, res) {
-//     res.json({
-//         message: 'Luke... I am your father'
-//     });
-// });
 
 // Endpoint for login
 app.post('/login', function(req, res, next){
@@ -132,7 +134,10 @@ app.post('/login', function(req, res, next){
             if (err) { 
                 return next(err); 
             }
+            console.log("this is the username", req.user.username)
             return res.send({success:'success'});
+            // res.redirect('/user-home/' + req.user.username)
+            // return res.json(user);
         });
     }) (req, res, next);
 })
@@ -227,6 +232,36 @@ app.post('/signup', jsonParser, function(req, res) {
         });
     });
 });
+
+
+app.isAuthenticated = function(req, res, next){
+    // If the current user is logged in.../si el usuario esta "logineado"...
+    if( req.isAuthenticated() ){
+    // Middleware allows the execution chain to continue/Middleware permite que se siga ejecutando el codigo
+        return next();
+    }
+    // If not, redirect to login/Si no, redirige a la pagina de unirse
+    res.redirect('/');
+}
+
+var userHomePage = function (req, res){
+    res.sendFile(__dirname + '/public/user-home.html');
+}
+
+
+var logOut = 
+
+//// GETS /////
+
+app.get("/user-home/:username",app.isAuthenticated,userHomePage);
+
+// logs present user out
+// cierra sesion del usuario
+app.get("/logout", function (req,res) {
+    console.log('this is also doing something on logout in the server')
+	req.logOut()
+	res.redirect('/')
+})
 
 exports.app = app;
 exports.runServer = runServer;

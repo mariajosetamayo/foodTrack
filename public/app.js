@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  
+  console.log('yisss!!!')
   //// jQuery UI for date picker ///////
   
   var date_input=$('input[name="date"]'); //our date input has the name "date"
@@ -21,6 +21,7 @@ $(document).ready(function(){
   var signInButton = $('.signInBtn');
   var signinEmail = $('#signinEmailInput');
   var signinPassword = $('#signinPasswordInput')
+  // var logoutButton = $(".logoutBtn")
   
   ////// Requests ///////
   
@@ -44,6 +45,7 @@ $(document).ready(function(){
     username = signinEmail.val();
     password = signinPassword.val();
     var existingUser = {'username': username, 'password':password};
+
     var ajax = $.ajax('/login', {
         type: 'POST',
         data: JSON.stringify(existingUser),
@@ -51,9 +53,17 @@ $(document).ready(function(){
         contentType: 'application/json'
     });
     ajax.done(function(res){
-      console.log("this is the response", res)
+      console.log("this is the response", res.success)
+      if(res.success){
+        window.location.href = "/user-home/" + username
+      }
+      else{
+        console.log("error")
+      }
     });
   }
+  
+  
   
   ////// Event Listeners ///////
   
@@ -71,6 +81,12 @@ $(document).ready(function(){
     signinPassword.val('');
     signinEmail.val('');
   })
+  
+  // logoutButton.click(function(event){
+  //     event.preventDefault();
+  //     console.log('this is doing something')
+  //     onLogout();
+  // })
   
 
 
