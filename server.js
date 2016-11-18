@@ -11,6 +11,10 @@ var config = require('./config');
 var app = express();
 var session = require('express-session')
 
+// set the view engine to ejs
+app.set('view engine', 'ejs');
+
+
 // MIDDLEWARE SETUP
 
 app.sessionMiddleware = session({
@@ -93,9 +97,13 @@ var jsonParser = bodyParser.json();
 passport.use(strategy);
 
 // Endpoint para home -> que haga render de home
-app.get('/',function(req,res){
-  res.sendFile('index.html');
+// index page 
+app.get('/', function(req, res) {
+    res.render('pages/index');
 });
+
+
+
 // Endpoint para signup -> que haga render de pag de sign up
 app.get('/signup',function(req,res){
   res.sendFile(__dirname + '/public/signup.html');
@@ -262,6 +270,8 @@ app.get("/logout", function (req,res) {
 	req.logOut()
 	res.redirect('/')
 })
+
+
 
 exports.app = app;
 exports.runServer = runServer;
