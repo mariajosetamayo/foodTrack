@@ -26,6 +26,8 @@ app.sessionMiddleware = session({
 
 
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/public/scripts'));
+app.use(express.static(__dirname + '/public/styles'));
 app.use(express.static(__dirname + '/public'));
 
 app.use(app.sessionMiddleware);
@@ -91,6 +93,19 @@ var strategy = new LocalStrategy(
     }
 );
 
+
+app.isAuthenticated = function(req, res, next){
+    // If the current user is logged in.../si el usuario esta "logineado"...
+    if( req.isAuthenticated() ){
+    // Middleware allows the execution chain to continue/Middleware permite que se siga ejecutando el codigo
+        return next();
+    }
+    // If not, redirect to login/Si no, redirige a la pagina de unirse
+    res.redirect('/');
+};
+
+
+
 // var app = express();
 var jsonParser = bodyParser.json();
 
@@ -102,18 +117,32 @@ app.get('/', function(req, res) {
     res.render('pages/index');
 });
 
+app.get('/user-home/:username', app.isAuthenticated, function (req, res){
+    res.render('pages/user-home', {username:req.user.username});
+});
+
+app.get('/addFood', function (req, res){
+    res.render('pages/add-food');
+});
+
+app.get('/signup', function (req, res){
+    res.render('pages/signup');
+})
+
 
 
 // Endpoint para signup -> que haga render de pag de sign up
-app.get('/signup',function(req,res){
+app.get('/signup', function(req,res){
   res.sendFile(__dirname + '/public/signup.html');
   console.log(__dirname)
 });
+
 // Endpoint para user home -> que haga render de pag de user home
 // app.get('/user-home',function(req,res){
 //   res.sendFile(__dirname + '/public/user-home.html');
 //   console.log(__dirname)
 // });
+
 // Endpoint para add food -> que haga render de pag de add food
 app.get('/addFood',function(req,res){
   res.sendFile(__dirname + '/public/addFood.html');
@@ -242,26 +271,11 @@ app.post('/signup', jsonParser, function(req, res) {
 });
 
 
-app.isAuthenticated = function(req, res, next){
-    // If the current user is logged in.../si el usuario esta "logineado"...
-    if( req.isAuthenticated() ){
-    // Middleware allows the execution chain to continue/Middleware permite que se siga ejecutando el codigo
-        return next();
-    }
-    // If not, redirect to login/Si no, redirige a la pagina de unirse
-    res.redirect('/');
-}
 
-var userHomePage = function (req, res){
-    res.sendFile(__dirname + '/public/user-home.html');
-}
-
-
-var logOut = 
 
 //// GETS /////
 
-app.get("/user-home/:username",app.isAuthenticated,userHomePage);
+
 
 // logs present user out
 // cierra sesion del usuario
@@ -269,9 +283,25 @@ app.get("/logout", function (req,res) {
     console.log('this is also doing something on logout in the server')
 	req.logOut()
 	res.redirect('/')
-})
+});
 
 
 
 exports.app = app;
 exports.runServer = runServer;
+
+
+
+
+// CRUD para los meals
+// Test CRUD
+// probrar con postman. 
+// Arreglar los navbars. sign in sign. 
+
+
+
+
+
+
+// Despues. 
+// un GET endpoint /user-days -> Query a meals, que seleccines los dates, Unique. 

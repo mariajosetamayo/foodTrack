@@ -1,0 +1,63 @@
+<!-- views/pages/add-food.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../partials/head %>
+    <link rel="stylesheet" href="../styles/addFood.css">
+  </head>
+  <body>
+    <div class="container">
+      <% include ../partials/header2 %>
+      <form class="addFoodForm">
+        <h1>Add a Meal</h1>
+        <div class="form-group">
+          <label for="foodName">Food name and quantity</label>
+          <input type="text" class="form-control" id="examplefoodInput" aria-describedby="emailHelp" placeholder="Ex. 1 apple">
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="date">Date</label>
+          <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
+        </div>
+        <div class="form-group">
+          <label for="exampleSelect1">Meal type</label>
+          <select class="form-control" id="exampleSelect1">
+            <option>Breakfast</option>
+            <option>Lunch</option>
+            <option>Dinner</option>
+            <option>Snack</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+      <div class="jumbotron foodInfo">
+        <h1><small>Food information</small></h1>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="card card-block">
+              <h3 class="card-title">Nutritional Information</h3>
+              <div></div>
+              <!--<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
+              <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card card-block">
+              <h3 class="card-title">Micronutrients</h3>
+              <div></div>
+              <!--<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
+              <a href="#" class="btn btn-primary">Home</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <% include ../partials/footer %>
+      </footer>
+    
+    <script type="text/javascript" src="add-food.js"></script>
+    
+  </body>
+</html>
+          
+    
