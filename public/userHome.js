@@ -6,6 +6,7 @@ $(document).ready(function(){
 ///// Variables to obtain elements from the DOM /////
 
 var diaryDatesTable = $('#diaryDates');
+var welcomeUser = $('#welcomeUser');
 
 ///// Methods to check for unique values //////
 
@@ -44,17 +45,19 @@ var getDatesOfMeals = function() {
 
 ////// Functions to display elements in DOM //////
 
+// var appendUserToWelcomeMessage = function (){
+    
+// }
+
 var appendDiaryDatesToTable = function (dates){
     dates.sort();
     for(var i = 0; i<dates.length; i++){
+        
         if(dates[i] !== null){
-            diaryDatesTable.append( '<a href="/report" class="list-group-item">' + dates[i] + '</a>')
+            var datesFormat = dates[i].split('T')[0];
+            diaryDatesTable.append( '<a href="/report" class="list-group-item">' + datesFormat + '</a>');
         }
     }
 }
 
-///// Pending code /////
 
-// Attempt to format dates
-
-// var datesFormat = dates[i].toLocaleDateString('en-US');
