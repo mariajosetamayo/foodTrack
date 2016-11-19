@@ -21,6 +21,18 @@ $(document).ready(function () {
   var foodPhoto = $('#foodPhoto');
   var foodInfoDiv = $('.foodInfo');
   var foodInfoTitle = $('#foodInfoTitle');
+  var nutritionTableTitle = $('.performance-facts__title');
+  var caloriesFieldTable = $('#calories');
+  var totalFatFieldTable = $('#total_fat');
+  var saturatedFatFieldTable = $('#saturated_fat');
+  var cholesterolFieldTable = $('#cholesterol');
+  var sodiumFieldTable = $('#sodium');
+  var carbohydratesFieldTable = $('#total_carbs');
+  var fiberFieldTable = $('#dietary_fiber');
+  var sugarFieldTable = $('#sugar');
+  var proteinFieldTable = $('#protein');
+  
+  
   
   var state = {
     mealId: ''
@@ -30,14 +42,15 @@ $(document).ready(function () {
   
   /////// Requests ////////
   
-  var onSaveMeal = function (name, date, meal){
-    name = foodName.val();
-    date = datePicker.val();
-    meal = mealType.val();
+  var onSaveMeal = function (name, date, meal, data){
+    // name = foodName.val();
+    // date = datePicker.val();
+    // meal = mealType.val();
     console.log("this is the food name", name)
     console.log('this is the date', date)
     console.log('this is the meal', meal)
-    var newMeal = {'name': name, 'date': date, 'meal': meal, 'nutrients': ''};
+    console.log('this is the data', data)
+    var newMeal = {'name': name, 'date': date, 'meal': meal, 'nutrients': data};
     console.log('this is the new meal', newMeal)
     var ajax = $.ajax('/meals', {
         type: 'POST',
@@ -47,7 +60,6 @@ $(document).ready(function () {
     });
     ajax.done(function(res){
       console.log('this is the saved meal', res)
-      getFoodRequest(res.name);
       state.mealId = res._id;
       console.log('this is the id', state.mealId)
     });
@@ -79,6 +91,8 @@ $(document).ready(function () {
     			console.info(data);
     
     			//Mostrar elemento en pantalla
+    			console.log(data.foods)
+    			onSaveMeal(state.name, state.date, state.meal, data.foods)
     			showNutritionalValue(data);
     			var isRecommended = isFoodRecommended(data);
 				  showRecomendation(isRecommended);
@@ -93,36 +107,7 @@ $(document).ready(function () {
 		});
 	}
 	
-	function showNutritionalValue(data){
-		foodPhoto.attr('src', data.foods[0].photo.thumb);
-		foodInfoTitle.text('Information for:' + ' ' + data.foods[0].food_name);
-
-		// for (var i=0; i< data.foods[0].full_nutrients.length; i++){
-		// 	var nutrient = data.foods[0].full_nutrients[i];
-		// 	var nutrientID = nutrient.attr_id;
-		// 	// console.log(nutrientID); te imprime toodos los ides de los full_nutrients, un opor uno.
-		// 	if (window.nutrientField[nutrientID]) {
-		// 		var name = window.nutrientField[nutrientID].name;
-		// 		if (nutrient.value !== 0) {
-		// 			micronutrientsDiv.append(
-		// 				"<li>" + name + ": " + nutrient.value + " " + window.nutrientField[nutrientID].unit + "</li>"
-		// 			);
-		// 		}
-		// 	}
-		// }
-
-		$(".performance-facts__title").text("Nutrition Information"+ data.foods[0].serving_weight_grams + " grams");
-		$("#calories").text(data.foods[0].nf_calories + " Kcal");
-		$("#total_fat").text(data.foods[0].nf_total_fat + " g");
-		$("#saturated_fat").text(data.foods[0].nf_saturated_fat + " g");
-		$("#cholesterol").text(data.foods[0].nf_cholesterol + "mg");
-		$("#sodium").text(data.foods[0].nf_sodium + " mg");
-		$("#total_carbs").text(data.foods[0].nf_total_carbohydrate + " g");
-		$("#dietary_fiber").text(data.foods[0].nf_dietary_fiber + " g");
-		$("#sugar").text(data.foods[0].nf_sugars + " g");
-		$("#protein").text(data.foods[0].nf_protein + " g");
-	
-	}
+	////// Functions to filter data from Nutritionix //////
 	
 	function isFoodRecommended(data){
 		var isRecommended = true;
@@ -132,11 +117,9 @@ $(document).ready(function () {
 			// console.log(nutrientID); te imprime toodos los ides de los full_nutrients, un opor uno.
 			if(nutrientID === 305){
 			 	var phosphorus = nutrient.value;
-				console.log(phosphorus);
 			}
 			if(nutrientID === 605){
 			 	var transFat = nutrient.value;
-				console.log(phosphorus);
 			}
 		}
 
@@ -145,13 +128,31 @@ $(document).ready(function () {
 		};
 		return isRecommended;
 	};
+	
+	////// Functions to display data on DOM //////
+	
+	function showNutritionalValue(data){
+		foodPhoto.attr('src', data.foods[0].photo.thumb);
+		foodInfoTitle.text('Information for:' + ' ' + data.foods[0].food_name);
+		// Nutritional table information fields
+		nutritionTableTitle.text("Nutrition Information"+ data.foods[0].serving_weight_grams + " grams");
+		caloriesFieldTable.text(data.foods[0].nf_calories + " Kcal");
+		totalFatFieldTable.text(data.foods[0].nf_total_fat + " g");
+		saturatedFatFieldTable.text(data.foods[0].nf_saturated_fat + " g");
+		cholesterolFieldTable.text(data.foods[0].nf_cholesterol + "mg");
+		sodiumFieldTable.text(data.foods[0].nf_sodium + " mg");
+		carbohydratesFieldTable.text(data.foods[0].nf_total_carbohydrate + " g");
+		fiberFieldTable.text(data.foods[0].nf_dietary_fiber + " g");
+		sugarFieldTable.text(data.foods[0].nf_sugars + " g");
+		proteinFieldTable.text(data.foods[0].nf_protein + " g");
+	}
 
 	function showRecomendation(isRecommended){
 		recommendationDiv.empty()
 		if (isRecommended){
 			recommendationDiv.append("<h2> Recommended!!!</h2><br/><p>If you have kidney diseases, this food is a good choice because it is low in: carbohydrates, protein, potassium, phosphorus,sugar, and sodium. </p>");
 		} else{
-			recommendationDiv.append("<h2> Not Recommended!!! </h2><br/><p>If you have kidney diseases, this food is a good choice because it is low in: carbohydrates, protein, potassium, phosphorus,sugar, and sodium. </p>");
+			recommendationDiv.append("<h2> Not Recommended!!! </h2><br/><p>If you have kidney diseases, this food is not a good choice because it is high in: carbohydrates, protein, potassium, phosphorus,sugar, and sodium. </p>");
 		}
 	};
   
@@ -159,13 +160,13 @@ $(document).ready(function () {
   
   saveMealButton.click(function(event){
     event.preventDefault();
-    onSaveMeal();
+    state.name = foodName.val();
+    state.date = datePicker.val();
+    state.meal = mealType.val();
+    getFoodRequest(state.name)
     foodInfoDiv.show();
     foodName.val('');
     datePicker.val('');
     mealType.val('');
   })
-  
-  
-
 });

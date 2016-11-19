@@ -273,7 +273,7 @@ app.get('/meals', function(req, res) {
 
 // enpoint to post a new meal
 app.post('/meals', function(req, res) {
-        Item.create({name: req.body.name, date: req.body.date, meal: req.body.meal, nutrients: req.body.meal}, 
+        Item.create({name: req.body.name, date: req.body.date, meal: req.body.meal, nutrients: req.body.data}, 
         function(err, items) {
             if (err) {
             return res.status(500).json({
