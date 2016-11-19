@@ -132,6 +132,10 @@ app.get('/addFood', function (req, res){
 app.get('/signup', function (req, res){
     res.render('pages/signup');
 })
+// Endpoint for getting report
+app.get('/report', function(req, res){
+    res.render('pages/report')
+})
 
 ////// Passport endpoints /////
 

@@ -1,0 +1,75 @@
+<!-- views/pages/add-food.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../partials/head %>
+    <link rel="stylesheet" href="../styles/report.css">
+  </head>
+  <body>
+    <div class="container">
+      <% include ../partials/header2 %>
+      <h1 class="titleTable">Meals for the 09/10/2016</h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name and portion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1 apple</th>
+              <td>Breakfast</td>
+              <td><a>Edit</a></td>
+              <td><a>Remove</a></td>
+              <td><a>View</a></td>
+            </tr>
+            <tr>
+              <th scope="row">1 oatmeal</th>
+              <td>Breakfast</td>
+              <td><a>Edit</a></td>
+              <td><a>Remove</a></td>
+              <td><a>View</a></td>
+            </tr>
+            <tr>
+              <th scope="row">1 coffee</th>
+              <td>Breakfast</td>
+              <td><a>Edit</a></td>
+              <td><a>Remove</a></td>
+              <td><a>View</a></td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+    
+    <div class="container">
+        <h1 class="titleTable">Report for the 09/10/2016</h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nutrients</th>
+              <th>Total amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Calories</th>
+              <td>1200 Kcal</td>
+            </tr>
+            <tr>
+              <th scope="row">Carbohydrates</th>
+              <td>200g</td>
+            </tr>
+            <tr>
+              <th scope="row">Proteins</th>
+              <td>50g</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>  
+    <footer>
+      <% include ../partials/footer %>
+    </footer>
+    <script type="text/javascript" src="add-food.js"></script>
+  </body>
+</html>

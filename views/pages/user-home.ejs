@@ -8,37 +8,30 @@
   </head>
   <body>
     <div class="container">
-          <% include ../partials/header2 %>
-          
-          <div class="jumbotron">
-            <h1>Welcome user!</h1>
-            <p>Add a new meal by pressing the button or consult your diary entries by clicking on an item on the table below.</p>
-            <p>
-              <a class="btn btn-lg btn-primary" href="/addFood" role="button">Add a new meal</a>
-            </p>
-          </div>
+      <% include ../partials/header2 %>
       
-          <div class="list-group">
-            <a href="#" class="list-group-item active">
-              Diary entries
-            </a>
-            <a href="report.html" class="list-group-item">02/10/2016</a>
-            <a href="report.html" class="list-group-item">01/10/2016</a>
-            <a href="report.html" class="list-group-item">30/09/2016</a>
-            <a href="report.html" class="list-group-item">29/09/2016</a>
-          </div>
-
-    </div> <!-- /container -->
-    
-     
+      <div class="jumbotron">
+        <h1>Welcome user!</h1>
+        <p>Add a new meal by pressing the button or consult your diary entries by clicking on an item on the table below.</p>
+        <p>
+          <a class="btn btn-lg btn-primary" href="/addFood" role="button">Add a new meal</a>
+        </p>
+      </div>
   
-    
-        <footer>
-          <% include ../partials/footer %>
-        </footer>
-    
-    <script type="text/javascript" src="../scripts/user-home.js"></script>
-    
+      <div class="list-group">
+        <a href="#" class="list-group-item active">
+          Diary entries
+        </a>
+        <a href="/report" class="list-group-item">02/10/2016</a>
+        <a href="/report" class="list-group-item">01/10/2016</a>
+        <a href="/report" class="list-group-item">30/09/2016</a>
+        <a href="/report" class="list-group-item">29/09/2016</a>
+      </div>
+    </div> <!-- /container -->
+    <footer>
+      <% include ../partials/footer %>
+      <script type="text/javascript" src="../userHome.js"></script>
+    </footer>
   </body>
 </html>
   
