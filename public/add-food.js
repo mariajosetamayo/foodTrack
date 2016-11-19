@@ -17,9 +17,16 @@ $(document).ready(function () {
   var datePicker = $('#date');
   var mealType = $('#mealType');
   var saveMealButton = $('#saveBtn');
-  var micronutrientsDiv = $('#micronutrientsDiv');
-  var foodInfoDiv = $('.foodInfo')
+  var recommendationDiv = $('#recommendationDiv');
+  var foodPhoto = $('#foodPhoto');
+  var foodInfoDiv = $('.foodInfo');
   var foodInfoTitle = $('#foodInfoTitle');
+  
+  var state = {
+    mealId: ''
+  };
+  
+  foodInfoDiv.hide();
   
   /////// Requests ////////
   
@@ -30,7 +37,7 @@ $(document).ready(function () {
     console.log("this is the food name", name)
     console.log('this is the date', date)
     console.log('this is the meal', meal)
-    var newMeal = {'name': name, 'date': date, 'meal': meal};
+    var newMeal = {'name': name, 'date': date, 'meal': meal, 'nutrients': ''};
     console.log('this is the new meal', newMeal)
     var ajax = $.ajax('/meals', {
         type: 'POST',
@@ -39,9 +46,13 @@ $(document).ready(function () {
         contentType: 'application/json'
     });
     ajax.done(function(res){
-      getFoodRequest(res.name)
+      console.log('this is the saved meal', res)
+      getFoodRequest(res.name);
+      state.mealId = res._id;
+      console.log('this is the id', state.mealId)
     });
   };
+  
   
   /////// Requests to Nutritionix ////////
   
@@ -83,12 +94,7 @@ $(document).ready(function () {
 	}
 	
 	function showNutritionalValue(data){
-//   // Funcion que contiene el jQuery para mostrar en la pantalla.
-// 		// Esto es la separacion de concerns. En la de arriba se hace el query, en
-// 		// esta se muestra todo en pantalla.
-// 		document.getElementById("foodItem").value = "";
-// 		document.getElementById("foodItem").value = "";
-// 		$("#foodPhoto").attr('src', data.foods[0].photo.thumb);
+		foodPhoto.attr('src', data.foods[0].photo.thumb);
 		foodInfoTitle.text('Information for:' + ' ' + data.foods[0].food_name);
 
 		// for (var i=0; i< data.foods[0].full_nutrients.length; i++){
@@ -105,7 +111,7 @@ $(document).ready(function () {
 		// 	}
 		// }
 
-		$(".performance-facts__title").text("Nutrition Information       "+ data.foods[0].serving_weight_grams + " grams");
+		$(".performance-facts__title").text("Nutrition Information"+ data.foods[0].serving_weight_grams + " grams");
 		$("#calories").text(data.foods[0].nf_calories + " Kcal");
 		$("#total_fat").text(data.foods[0].nf_total_fat + " g");
 		$("#saturated_fat").text(data.foods[0].nf_saturated_fat + " g");
@@ -134,23 +140,18 @@ $(document).ready(function () {
 			}
 		}
 
-		if ((data.foods[0].nf_total_carbohydrate>=60) || (data.foods[0].nf_calories> 200) || (data.foods[0].serving_weight_grams<15 && data.foods[0].nf_calories> 30) || (data.foods[0].nf_saturated_fat>3) || (transFat>0) || (data.foods[0].serving_weight_grams<15 && data.foods[0].nf_calories> 30)){
+		if ((data.foods[0].nf_total_carbohydrate>=60) || (data.foods[0].nf_calories> 200) || (data.foods[0].serving_weight_grams<15 && data.foods[0].nf_calories> 30) || (data.foods[0].nf_saturated_fat>3) || (transFat>0) || (data.foods[0].serving_weight_grams<15 && data.foods[0].nf_calories> 30) || (data.foods[0].nf_potassium>=200) || (phosphorus>= 150) || (data.foods[0].nf_sodium>=200)){
 			isRecommended = false;
 		};
 		return isRecommended;
 	};
 
 	function showRecomendation(isRecommended){
-		$("#results2").empty()
+		recommendationDiv.empty()
 		if (isRecommended){
-		// 	$(".resultsContainer").addClass("recommendedContainer");//Pintar de verde el div
-		// 	$(".resultsContainer").removeClass("notRecommendedContainer");
-			micronutrientsDiv.append("<h2> Recommended!!! </h2>");
-		} else  {
-			// Aparezca texto "Not Rec"
-		// 	$("#results2").append("<h2> Not Recommended!!! </h2>");
-		// 	$(".resultsContainer").addClass("notRecommendedContainer");//Pintarle de rojo al texto.
-			micronutrientsDiv.removeClass("recommendedContainer");
+			recommendationDiv.append("<h2> Recommended!!!</h2><br/><p>If you have kidney diseases, this food is a good choice because it is low in: carbohydrates, protein, potassium, phosphorus,sugar, and sodium. </p>");
+		} else{
+			recommendationDiv.append("<h2> Not Recommended!!! </h2><br/><p>If you have kidney diseases, this food is a good choice because it is low in: carbohydrates, protein, potassium, phosphorus,sugar, and sodium. </p>");
 		}
 	};
   
@@ -159,7 +160,7 @@ $(document).ready(function () {
   saveMealButton.click(function(event){
     event.preventDefault();
     onSaveMeal();
-    
+    foodInfoDiv.show();
     foodName.val('');
     datePicker.val('');
     mealType.val('');

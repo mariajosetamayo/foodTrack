@@ -273,7 +273,7 @@ app.get('/meals', function(req, res) {
 
 // enpoint to post a new meal
 app.post('/meals', function(req, res) {
-        Item.create({name: req.body.name, date: req.body.date, meal: req.body.meal}, 
+        Item.create({name: req.body.name, date: req.body.date, meal: req.body.meal, nutrients: req.body.meal}, 
         function(err, items) {
             if (err) {
             return res.status(500).json({
@@ -287,7 +287,7 @@ app.post('/meals', function(req, res) {
 // enpoint to change a meal
 app.put('/meals/:id', function(req, res){
         var queryID = {_id: req.params.id}
-        var updateItem = {name: req.body.name, _id: req.params.id}
+        var updateItem = {name: req.body.name, _id: req.params.id, date: req.body.date, meal: req.body.meal, nutrients: req.body.nutrients}
         console.log("UPDATED ITEM", updateItem)
         Item.findOneAndUpdate(queryID, updateItem,
         function(err, items){
