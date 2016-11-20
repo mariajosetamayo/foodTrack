@@ -319,6 +319,16 @@ app.delete('/meals/:id', function(req, res){
     });
 });
 
+// endpoint for selected date
+app.post('/report', function(req, res){
+    var chosenMealToView = {meals: req.body}
+    res.json(chosenMealToView);
+})
+
+////// Event listeners ///////
+
+
+
 exports.app = app;
 exports.runServer = runServer;
 
