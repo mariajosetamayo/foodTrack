@@ -32,7 +32,8 @@ var appendTitleToTable = function(){
 
 var appendMealsToTable = function(meals){
     for(var i = 0; i<meals.length; i ++){
-       mealsTableBody.append('<tr><th scope="row">' + meals[i].name + '</th>' + '<td>' + meals[i].meal + '<td><a>Edit</a></td><td><a id = '+ meals._id +'>Remove</a></td></tr>') 
+        console.log('this is the meals id', meals[i]._id)
+       mealsTableBody.append('<tr id = '+ meals[i]._id +'><th scope="row">' + meals[i].name + '</th>' + '<td>' + meals[i].meal + '<td><a>Edit</a></td><td><a class = "remove">Remove</a></td></tr>') 
     }
 }
 
@@ -43,10 +44,11 @@ var removeMealEntry = function(meal){
 
 ////// Event Listeners ///////
 
-mealsTableBody.on('click', 'a', function(event){
+mealsTableBody.on('click','.remove', function(event){
     event.preventDefault();
     var mealClickedToRemove = $(this).closest('tr').attr('id');
     console.log('this is the variable to be removed', mealClickedToRemove)
+    removeMealEntry(mealClickedToRemove)
 })
 
 $(document).ready(function(){
