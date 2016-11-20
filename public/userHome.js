@@ -75,11 +75,3 @@ $(document).ready(function(){
   appendUserToWelcomeMessage()
 })
 
-
-
-////// PENDING CODE ///////
-
-// var appendUserToWelcomeMessage = function (res){
-//     welcomeUser.text('Welcome' + ' ' + window.location.href)
-// }
-
