@@ -21,7 +21,9 @@ var onDeleteItem = function(id) {
         type: 'DELETE',
         dataType: 'json'
     });
-    ajax.done(this.getItems.bind(this));
+    ajax.done(function(res){
+        console.log('this is the deleted item', res)
+    });
 };
 
 ////// Functions to display elements in DOM //////
@@ -37,10 +39,6 @@ var appendMealsToTable = function(meals){
     }
 }
 
-var removeMealEntry = function(meal){
-   var $mealId = $('#meal')
-   $mealId.remove()
-}
 
 ////// Event Listeners ///////
 
@@ -48,7 +46,8 @@ mealsTableBody.on('click','.remove', function(event){
     event.preventDefault();
     var mealClickedToRemove = $(this).closest('tr').attr('id');
     console.log('this is the variable to be removed', mealClickedToRemove)
-    removeMealEntry(mealClickedToRemove)
+    $(this).closest('tr').remove();
+    onDeleteItem(mealClickedToRemove);
 })
 
 $(document).ready(function(){

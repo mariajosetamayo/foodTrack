@@ -326,6 +326,7 @@ app.put('/meals/:id', function(req, res){
 
 // enpoint to delete a meal
 app.delete('/meals/:id', function(req, res){
+		console.log('we are hitting the delete enpoint')
         var chosenItemID = {_id: req.params.id}
         Item.findOneAndRemove({_id: req.params.id},
         function(err, item){
