@@ -5,7 +5,6 @@ var User = require('./models/users');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
-var moment = require('moment')
 
 var config = require('./config');
 
@@ -126,7 +125,7 @@ app.get('/user-home/:username', app.isAuthenticated, function (req, res){
     res.render('pages/user-home', {username:req.user.username});
 });
 // Endpoint for rendering addfood page
-app.get('/addFood', function (req, res){
+app.get('/addFood', app.isAuthenticated, function (req, res){
     res.render('pages/add-food');
 });
 // Endpoint for redenring signup
@@ -134,16 +133,16 @@ app.get('/signup', function (req, res){
     res.render('pages/signup');
 })
 // Endpoint for getting report
-app.get('/report/:date', function (req, res) { // we include the date in the endpoint so we can go another get request when the page loads
+app.get('/report/:date', app.isAuthenticated, function (req, res) { // we include the date in the endpoint so we can go another get request when the page loads
     res.render('pages/report')
 })
-app.get('/getReport/:date', function(req, res){
+app.get('/getReport/:date', app.isAuthenticated, function(req, res){
     console.log("are we hitting the getReport endpoint???")
     console.log('we are hitting report endpoint and the date sent is ', req.params)
     var oneDayAfter = new Date(req.params.date) // set format for date
     oneDayAfter.setDate(oneDayAfter.getDate() + 1) // assign variable the value of the day after the date request
     console.log("date searched is", req.params.date, " and one day later it is the ", oneDayAfter)
-    Item.find({date : {$gte : new Date(req.params.date), $lt : new Date(oneDayAfter)}}, function(err, foundMeals){ // here we query the db to find the entries that match the present day.
+    Item.find({username: req.user.username, date : {$gte : new Date(req.params.date), $lt : new Date(oneDayAfter)}}, function(err, foundMeals){ // here we query the db to find the entries that match the present day.
                                                                                                                     // We know it is the present day because it has to be between 12am of request day and 12am on the next day
         if (err) {
             res.send(err)
@@ -282,7 +281,7 @@ var Item = require('./models/food');
 
 // endpoint to get the meals
 app.get('/meals', function(req, res) {
-    Item.find(function(err, items) { //fetches a list of all the items from the DB using find. Returns json
+    Item.find({ username: req.user.username }, function(err, items) { //fetches a list of all the items from the DB using find. Returns json
         if (err) {
             return res.status(500).json({
                 message: 'Internal Server Error'
@@ -294,13 +293,16 @@ app.get('/meals', function(req, res) {
 
 // enpoint to post a new meal
 app.post('/meals', function(req, res) {
-        Item.create({name: req.body.name, date: req.body.date, meal: req.body.meal, nutrients: req.body.data}, 
+	console.log("WE ARE HITTING THE MEALS ENDPOINT!!!! ", req.body)
+        Item.create({name: req.body.name, date: new Date(req.body.date), meal: req.body.meal, nutrients: req.body.nutrients, username: req.user.username }, 
         function(err, items) {
             if (err) {
-            return res.status(500).json({
+            	console.log("GOT AN ERROR BRAH ", err)
+            	return res.status(500).json({
                 message: 'Internal Server Error'
             });
         }
+        console.log("GREAT SUCCESS!!!")
         res.status(201).json(items);
     });
 });
