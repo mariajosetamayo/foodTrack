@@ -4,11 +4,6 @@
 var diaryDatesTable = $('#diaryDates');
 var welcomeUser = $('#welcomeUser');
 
-///// State object for date variable /////
- var state = {
-     selectedDate: ' ',
- }
-
 ///// Methods to check for unique values //////
 
 Array.prototype.contains = function(v) {
@@ -41,24 +36,13 @@ var getDatesOfMeals = function() {
         })
         var uniqueMealDates = mealDates.unique();
         appendDiaryDatesToTable(uniqueMealDates)
-        state.meals = res
     });
 };
 
 
-var selectedMealEntries = function (res){
-    var findMealsInArray = res.filter(function(item){
-        console.log('this is the date', state.selectedDate)
-        return item.date == state.selectedDate
-    });
-    console.log('this is the returned meal', findMealsInArray)
-    saveSelectedDate(findMealsInArray)
-}
-
-
 var saveSelectedDate = function(data){
     var chosenMealToView = {meals: data};
-    var ajax = $.ajax('/report', {
+    var ajax = $.ajax('/reports', {
         type: 'POST',
         data: JSON.stringify(chosenMealToView),
         dataType: 'json',
@@ -77,21 +61,18 @@ var appendDiaryDatesToTable = function (dates){
         
         if(dates[i] !== null){
             var datesFormat = dates[i].split('T')[0];
-            diaryDatesTable.append( '<a  class="list-group-item" id= '+ dates[i] +'>' + datesFormat + '</a>');
+            diaryDatesTable.append( '<a href="/report/'+ datesFormat +'" class="list-group-item" id= '+ dates[i] +'>' + datesFormat + '</a>');
         }
     }
 }
 
-/////// Event listeners ///////
-
-var diaryDate = diaryDatesTable.on('click', 'a', function(event){
-    event.preventDefault();
-    state.selectedDate = $(this).attr('id');
-    selectedMealEntries(state.meals)
-})
+var appendUserToWelcomeMessage = function (res){
+    welcomeUser.text('Welcome' + ' ' + window.location.href.split("/")[window.location.href.split("/").length - 1])
+}
 
 $(document).ready(function(){
   getDatesOfMeals()
+  appendUserToWelcomeMessage()
 })
 
 
@@ -99,7 +80,6 @@ $(document).ready(function(){
 ////// PENDING CODE ///////
 
 // var appendUserToWelcomeMessage = function (res){
-//     welcomeUser.text('Welcome' + ' ' + res.name)
+//     welcomeUser.text('Welcome' + ' ' + window.location.href)
 // }
 
-//href="/report"

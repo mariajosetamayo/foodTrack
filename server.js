@@ -5,6 +5,7 @@ var User = require('./models/users');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
+var moment = require('moment')
 
 var config = require('./config');
 
@@ -133,8 +134,24 @@ app.get('/signup', function (req, res){
     res.render('pages/signup');
 })
 // Endpoint for getting report
-app.get('/report', function(req, res){
+app.get('/report/:date', function (req, res) { // we include the date in the endpoint so we can go another get request when the page loads
     res.render('pages/report')
+})
+app.get('/getReport/:date', function(req, res){
+    console.log("are we hitting the getReport endpoint???")
+    console.log('we are hitting report endpoint and the date sent is ', req.params)
+    var oneDayAfter = new Date(req.params.date) // set format for date
+    oneDayAfter.setDate(oneDayAfter.getDate() + 1) // assign variable the value of the day after the date request
+    console.log("date searched is", req.params.date, " and one day later it is the ", oneDayAfter)
+    Item.find({date : {$gte : new Date(req.params.date), $lt : new Date(oneDayAfter)}}, function(err, foundMeals){ // here we query the db to find the entries that match the present day.
+                                                                                                                    // We know it is the present day because it has to be between 12am of request day and 12am on the next day
+        if (err) {
+            res.send(err)
+        } else {
+            console.log("the meals found are the following: ", foundMeals)
+            res.send(foundMeals) // these are the meals found which match the request date
+        }
+    })
 })
 
 ////// Passport endpoints /////
@@ -320,10 +337,12 @@ app.delete('/meals/:id', function(req, res){
 });
 
 // endpoint for selected date
-app.post('/report', function(req, res){
+app.post('/reports', function(req, res){
     var chosenMealToView = {meals: req.body}
     res.json(chosenMealToView);
 })
+
+
 
 ////// Event listeners ///////
 
