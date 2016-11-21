@@ -116,18 +116,6 @@ var addedDailyMicronutrients = function (micronutrientsValuesArray){
     return returnArray
 }
 
-// var addElementsArray = function (item1,item2){
-//     return item1 + item2;
-// }
-
-// var addedDailyMicronutrients = function (transposeMicronutrientsArray){
-//     console.log('we are getting here to addedDailyMicronutrients')
-//     var sumArraysTransposeMicronutrientsArray = transposeMicronutrientsArray.map(function(item){
-//         var sumItemsInArrays = item.reduce(addElementsArray, 0);
-//         return sumItemsInArrays;
-//     })
-//     console.log('this is the sum in each array', sumArraysTransposeMicronutrientsArray)
-// }
 
 ////// Requests ///////
 
@@ -168,7 +156,7 @@ var appendMealsToTable = function(meals){
 
 var appendValuesToReportTable = function(totalNutrients){
     for(var i = 0; i<totalNutrients.length; i ++){
-       reportTableBody.append('<tr><th scope="row">' + totalNutrients[i].nutrient + '</th>' + '<td>' + totalNutrients[i].value + '<td></tr>') 
+       reportTableBody.append('<tr><th scope="row">' + totalNutrients[i].nutrient + '</th>' + '<td>' + totalNutrients[i].value.toFixed(2) + '<td></tr>') 
     }
 }
 
