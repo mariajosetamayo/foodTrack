@@ -10,6 +10,8 @@ $(document).ready(function(){
   var signinEmail = $('#signinEmailInput');
   var signinPassword = $('#signinPasswordInput');
   var accountStatus = $('#accountStatus');
+  var firstDivIntroToFoodtrack = $('#firstDivIntroToFoodtrack');
+  var learnMoreButton = $('#learnMoreButton');
   // var logoutButton = $(".logoutBtn")
 
   ////// Requests ///////
@@ -55,6 +57,27 @@ $(document).ready(function(){
 
   ////// Event Listeners ///////
 
+  learnMoreButton.click(function(event){
+    event.preventDefault();
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (2000) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 2000, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      })
+    }
+  })
+
   signUpButton.click(function(event){
     event.preventDefault();
     onSignUp();
@@ -70,4 +93,4 @@ $(document).ready(function(){
     signinEmail.val('');
   })
 
-})
+});

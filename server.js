@@ -137,6 +137,7 @@ app.get('/addFood/:id', app.isAuthenticated, function (req, res){
           return res.status(500).json({
           message: 'Internal Server Error'});
       }
+      console.log('this is the item', item)
       res.render('pages/add-food', {item:item, username:req.user.username });
   });
 
@@ -369,42 +370,3 @@ app.post('/reports', function(req, res){
 exports.app = app;
 exports.runServer = runServer;
 
-
-
-
-// CRUD para los meals
-// Test CRUD
-// probrar con postman.
-// Arreglar los navbars. sign in sign.
-
-
-
-
-
-
-// Despues.
-// un GET endpoint /user-days -> Query a meals, que seleccines los dates, Unique.
-
-
-// Endpoint para signup -> que haga render de pag de sign up
-// app.get('/signup', function(req,res){
-//   res.sendFile(__dirname + '/public/signup.html');
-//   console.log(__dirname)
-// });
-
-// Endpoint para user home -> que haga render de pag de user home
-// app.get('/user-home',function(req,res){
-//   res.sendFile(__dirname + '/public/user-home.html');
-//   console.log(__dirname)
-// });
-
-// Endpoint para add food -> que haga render de pag de add food
-// app.get('/addFood',function(req,res){
-//   res.sendFile(__dirname + '/public/addFood.html');
-//   console.log(__dirname)
-// });
-// // Endpoint para report -> que haga render de pag de report
-// app.get('/report',function(req,res){
-//   res.sendFile(__dirname + '/public/report.html');
-//   console.log(__dirname)
-// });
