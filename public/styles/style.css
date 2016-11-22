@@ -98,6 +98,10 @@ body {
   border-bottom-color: #fff;
 }
 
+#signupBtn a{
+  text-decoration: none;
+}
+
 @media (min-width: 768px) {
   .masthead-brand {
     float: left;
@@ -132,6 +136,29 @@ body {
   font-weight: 300;
   line-height: 1;
   letter-spacing: -.05rem;
+}
+
+.foodTrackIntroInfo{
+  background-color: #333333;
+  margin-top: -55%;
+}
+
+.btn-default:hover {
+  background-position: 0px;
+}
+
+.homeImg1{
+  width: 99%;
+}
+
+.homeImg2{
+  width: 100%;
+  margin-top: 11%;
+}
+
+.homeImg3{
+  width: 100%;
+  margin-top: 15%;
 }
 
 
@@ -191,4 +218,9 @@ body {
   .featurette-heading {
     margin-top: 7rem;
   }
+}
+
+@media (min-width: 62em){
+.featurette-heading {
+    margin-top: 2rem;
 }

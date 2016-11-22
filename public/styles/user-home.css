@@ -1,6 +1,13 @@
+body{
+  background-color: #333333;
+}
+
 .jumbotron{
     margin-top: 10%;
+    background-color: #333333;
+    color: white;
 }
+
 
 .list-group{
     margin-top: 5%;
@@ -8,4 +15,14 @@
 
 .logoutBtn{
     margin-top: 1% ;
+}
+
+.list-group{
+	background-image: #4caf50;
+}
+
+@media (min-width: 0px) and (max-width: 405px){
+	.jumbotron{
+		margin-top: 35%;
+	}
 }
