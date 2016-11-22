@@ -165,5 +165,5 @@ $(document).ready(function () {
     var newMeal = {'name': foodName.val(), 'date': datePicker.val(), 'meal': mealType.val(), 'id': foodId.val()};
     getFoodRequest(newMeal)
     foodInfoDiv.show();
-  })
+  });
 });

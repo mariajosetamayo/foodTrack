@@ -25,7 +25,7 @@ body{
   width: 240px;
  }
 
- .ui-datepicker a,
+.ui-datepicker a,
 .ui-datepicker a:hover {
   text-decoration: none;
 }
@@ -248,4 +248,27 @@ p {
 
 .hidden{
   display: none;
+}
+
+.foodInfo{
+  background-color: #333333;
+  color: white;
+}
+
+.card-block{
+  color: black;
+}
+
+#recommendationDiv{
+  color: white;
+}
+
+@media (min-width: 0px) and (max-width: 500px){
+  .addFoodForm{
+    margin-top: 60%;
+  }
+
+  #foodPhoto{
+    margin-left: 20%;
+  }
 }
