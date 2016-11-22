@@ -144,6 +144,7 @@ var onDeleteItem = function(id) {
     });
     ajax.done(function(res){
         console.log('this is the deleted item', res)
+        location.reload();
     });
 };
 
@@ -162,7 +163,9 @@ var appendMealsToTable = function(meals){
 
 var appendValuesToReportTable = function(totalNutrients){
     for(var i = 0; i<totalNutrients.length; i ++){
-       reportTableBody.append('<tr><th scope="row">' + totalNutrients[i].nutrient + '</th>' + '<td>' + totalNutrients[i].value.toFixed(2) + '<td></tr>')
+        if(totalNutrients[i].value> 0.01){
+            reportTableBody.append('<tr><th scope="row">' + totalNutrients[i].nutrient + '</th>' + '<td>' + totalNutrients[i].value.toFixed(2) + '<td></tr>')
+        }
     }
 }
 

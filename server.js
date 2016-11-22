@@ -144,7 +144,7 @@ app.get('/addFood/:id', app.isAuthenticated, function (req, res){
 });
 // Endpoint for redenring signup
 app.get('/signup', function (req, res){
-    res.render('pages/signup', { username:{} });
+    res.render('pages/signup', { username:null });
 })
 // Endpoint for getting report
 app.get('/report/:date', app.isAuthenticated, function (req, res) { // we include the date in the endpoint so we can go another get request when the page loads

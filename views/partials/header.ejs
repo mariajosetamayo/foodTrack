@@ -10,7 +10,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">FoodTrack</a>
+      <% if(username) { %>
+        <a class="navbar-brand" href="/user-home">FoodTrack</a>
+        <% } else{ %>
+        <a class="navbar-brand" href="/">FoodTrack</a>
+      <%}  %>
+      <!-- <a class="navbar-brand" href="/user-home">FoodTrack</a> -->
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <form class="navbar-form navbar-right" action="/login">
@@ -19,16 +24,16 @@
           <% if (username) { %>
             <a href="/logout" class="btn btn-success">Log out</a>
             <% }else{  %>
-              <input type="text" id="signinEmailInput" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" id="signinPasswordInput" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success signInBtn">Sign in</button>
-            <button type="submit" class="btn btn-success"><a href="/signup">Sign up</a></button>
-            <%}  %>
-          </form>
+              <input type="text" id="signinEmailInput" placeholder="Username" class="form-control">
+        </div>
+        <div class="form-group">
+          <input type="password" id="signinPasswordInput" placeholder="Password" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-success signInBtn">Sign in</button>
+        <button id = "signupBtn" type="submit" class="btn btn-success"><a href="/signup">Sign up</a></button>
+        <%}  %>
+      </form>
 
-        </div><!--/.navbar-collapse -->
-      </div>
-    </nav>
+    </div><!--/.navbar-collapse -->
+  </div>
+</nav>

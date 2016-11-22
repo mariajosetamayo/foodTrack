@@ -61,8 +61,6 @@ $(document).ready(function () {
     });
     ajax.done(function(res){
       console.log('this is the saved meal', res)
-      state.mealId = res._id;
-      console.log('this is the id', state.mealId)
     });
   };
 
@@ -102,6 +100,7 @@ $(document).ready(function () {
   			},
   			error: function (request, status, error) {
     			// Estos console.log te dan informacion del error.
+          foodInfoTitle.text('Sorry! We could not find this food item in our database');
     			console.log(request.responseText);
     			console.log(error);
     			console.log(status);
@@ -126,7 +125,7 @@ $(document).ready(function () {
 			}
 		}
 
-		if ((data.foods[0].nf_total_carbohydrate>=60) || (data.foods[0].nf_calories> 200) || (data.foods[0].serving_weight_grams<15 && data.foods[0].nf_calories> 30) || (data.foods[0].nf_saturated_fat>3) || (transFat>0) || (data.foods[0].serving_weight_grams<15 && data.foods[0].nf_calories> 30) || (data.foods[0].nf_potassium>=200) || (phosphorus>= 150) || (data.foods[0].nf_sodium>=200)){
+		if ((data.foods[0].nf_total_carbohydrate>=60) || (data.foods[0].nf_calories> 200) || (data.foods[0].serving_weight_grams<15 && data.foods[0].nf_calories> 30) || (data.foods[0].nf_saturated_fat>3) || (transFat>0) || (data.foods[0].serving_weight_grams<15 && data.foods[0].nf_calories> 30) || (data.foods[0].nf_sodium>=200)){
 			isRecommended = false;
 		};
 		return isRecommended;
@@ -153,9 +152,9 @@ $(document).ready(function () {
 	function showRecomendation(isRecommended){
 		recommendationDiv.empty()
 		if (isRecommended){
-			recommendationDiv.append("<h2> Recommended!!!</h2><br/><p>If you have kidney diseases, this food is a good choice because it is low in: carbohydrates, protein, potassium, phosphorus,sugar, and sodium. </p>");
+			recommendationDiv.append("<h2> Recommended!!!</h2><br/><p>If your goal is to keep a healthy weight and a balanced diet, this food is a good choice because it is either low in: carbohydrates, saturated fat, trans fat, sugar, and/or sodium. </p>");
 		} else{
-			recommendationDiv.append("<h2> Not Recommended!!! </h2><br/><p>If you have kidney diseases, this food is not a good choice because it is high in: carbohydrates, protein, potassium, phosphorus,sugar, and sodium. </p>");
+			recommendationDiv.append("<h2> Not Recommended!!! </h2><br/><p>If your goal is to keep a healthy weight and a balanced diet, this food is not a good choice because it is either high in: carbohydrates, saturated fat, trans fat, sugar, and/or sodium. </p>");
 		}
 	};
 
@@ -166,8 +165,5 @@ $(document).ready(function () {
     var newMeal = {'name': foodName.val(), 'date': datePicker.val(), 'meal': mealType.val(), 'id': foodId.val()};
     getFoodRequest(newMeal)
     foodInfoDiv.show();
-    foodName.val('');
-    datePicker.val('');
-    mealType.val('');
   })
 });

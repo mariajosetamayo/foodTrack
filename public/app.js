@@ -8,7 +8,8 @@ $(document).ready(function(){
   var signUpButton = $('#signUpBtn');
   var signInButton = $('.signInBtn');
   var signinEmail = $('#signinEmailInput');
-  var signinPassword = $('#signinPasswordInput')
+  var signinPassword = $('#signinPasswordInput');
+  var accountStatus = $('#accountStatus');
   // var logoutButton = $(".logoutBtn")
 
   ////// Requests ///////
@@ -26,6 +27,7 @@ $(document).ready(function(){
     });
     ajax.done(function(res){
       console.log("this is the response", res)
+      accountStatus.text('Your account was successfully created, please sign in');
     });
   };
 
