@@ -1,4 +1,4 @@
-global.DATABASE_URL = 'mongodb://mjtamayo:milanka@ds155737.mlab.com:55737/foodtrack';
+global.DATABASE_URL = 'mongodb://localhost/foodtrack-test';
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var server = require('../server.js');
