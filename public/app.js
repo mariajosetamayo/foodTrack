@@ -1,7 +1,7 @@
 $(document).ready(function(){
- 
+
   /////// Variables to obtain elements from the DOM ///////
-  
+
   var userNameInput = $('#inputName');
   var userEmailInput = $('#inputEmail');
   var userPasswordInput = $('#inputPassword');
@@ -10,9 +10,9 @@ $(document).ready(function(){
   var signinEmail = $('#signinEmailInput');
   var signinPassword = $('#signinPasswordInput')
   // var logoutButton = $(".logoutBtn")
-  
+
   ////// Requests ///////
-  
+
   var onSignUp = function (username, password){
     username = userNameInput.val();
     password = userPasswordInput.val();
@@ -28,7 +28,7 @@ $(document).ready(function(){
       console.log("this is the response", res)
     });
   };
-  
+
   var onSignIn = function (username, password){
     username = signinEmail.val();
     password = signinPassword.val();
@@ -43,16 +43,16 @@ $(document).ready(function(){
     ajax.done(function(res){
       console.log("this is the response", res.success)
       if(res.success){
-        window.location.href = "/user-home/" + username
+        window.location.href = "/user-home" 
       }
       else{
         console.log("error")
       }
     });
   }
-  
+
   ////// Event Listeners ///////
-  
+
   signUpButton.click(function(event){
     event.preventDefault();
     onSignUp();
@@ -60,7 +60,7 @@ $(document).ready(function(){
     userEmailInput.val('');
     userPasswordInput.val('');
   });
-  
+
   signInButton.click(function(event){
     event.preventDefault();
     onSignIn();
@@ -69,5 +69,3 @@ $(document).ready(function(){
   })
 
 })
-
-

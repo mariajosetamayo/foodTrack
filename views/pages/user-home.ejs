@@ -8,15 +8,15 @@
   </head>
   <body>
     <div class="container">
-      <% include ../partials/header2 %>
+      <% include ../partials/header %>
       <div class="jumbotron">
-        <h1 id="welcomeUser">Welcome user!</h1>
+        <h1 id="welcomeUser">Welcome <%= username %>!</h1>
         <p>Add a new meal by pressing the button or consult your diary entries by clicking on an item on the table below.</p>
         <p>
           <a class="btn btn-lg btn-primary" href="/addFood" role="button">Add a new meal</a>
         </p>
       </div>
-  
+
       <div class="list-group" id="diaryDates">
         <a href="#" class="list-group-item active">
           Diary entries
@@ -29,4 +29,3 @@
     </footer>
   </body>
 </html>
-  

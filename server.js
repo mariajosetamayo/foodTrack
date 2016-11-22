@@ -69,14 +69,14 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-//Passport local strategy fetches user which matches username provided. 
+//Passport local strategy fetches user which matches username provided.
 
 var strategy = new LocalStrategy(
     function(username, password, done) {
         User.findOne({ username: username }, function (err, user) {
             console.log("this is the user", user)
-            if (err) { 
-                return done(err); 
+            if (err) {
+                return done(err);
             }
             if (!user) {
                 return done(null, false, { message: 'Incorrect username.' });
@@ -116,25 +116,39 @@ passport.use(strategy);
 //// Rendering Endpoints //////
 
 // Endpoint para home -> que haga render de home
-// index page 
+// index page
 app.get('/', function(req, res) {
-    res.render('pages/index');
+    res.render('pages/index', { username:null });
 });
-// Endpoint for rendering user-home 
-app.get('/user-home/:username', app.isAuthenticated, function (req, res){
-    res.render('pages/user-home', {username:req.user.username});
+// Endpoint for rendering user-home
+app.get('/user-home', app.isAuthenticated, function (req, res){
+    res.render('pages/user-home', { username:req.user.username });
 });
 // Endpoint for rendering addfood page
 app.get('/addFood', app.isAuthenticated, function (req, res){
-    res.render('pages/add-food');
+    res.render('pages/add-food', { item:{}, username:req.user.username });
+});
+// Endpoint for rendering editFood page
+app.get('/addFood/:id', app.isAuthenticated, function (req, res){
+  var queryID = {_id: req.params.id}
+  Item.findOne(queryID,
+  function(err, item){
+      if(err) {
+          return res.status(500).json({
+          message: 'Internal Server Error'});
+      }
+      res.render('pages/add-food', {item:item, username:req.user.username });
+  });
+
+
 });
 // Endpoint for redenring signup
 app.get('/signup', function (req, res){
-    res.render('pages/signup');
+    res.render('pages/signup', { username:{} });
 })
 // Endpoint for getting report
 app.get('/report/:date', app.isAuthenticated, function (req, res) { // we include the date in the endpoint so we can go another get request when the page loads
-    res.render('pages/report')
+    res.render('pages/report', { username:{} })
 })
 app.get('/getReport/:date', app.isAuthenticated, function(req, res){
     console.log("are we hitting the getReport endpoint???")
@@ -161,15 +175,15 @@ app.post('/login', function(req, res, next){
     passport.authenticate('local', function(err, user, info) {
         console.log("this is the user", user)
         // user = req.body
-        if (err) { 
-            return next(err); 
+        if (err) {
+            return next(err);
         }
-        if (!user) { 
-            return res.send({error : 'something went wrong :('}); 
+        if (!user) {
+            return res.send({error : 'something went wrong :('});
         }
         req.logIn(user, function(err) {
-            if (err) { 
-                return next(err); 
+            if (err) {
+                return next(err);
             }
             console.log("this is the username", req.user.username)
             return res.send({success:'success'});
@@ -178,7 +192,7 @@ app.post('/login', function(req, res, next){
 })
 
 
-// Endpoint for creating users  
+// Endpoint for creating users
 app.post('/signup', jsonParser, function(req, res) {
     console.log("we are hitting the users endpoint and the request receiced is", req.body)
     if (!req.body) {
@@ -224,14 +238,14 @@ app.post('/signup', jsonParser, function(req, res) {
     }
 
     password = password.trim();
-    
+
     // Password hashing
     bcrypt.genSalt(10, function(err, salt) { // takes number 10 to indicate how many rounds of salting algorythm should be used
         if (err) {
             return res.status(500).json({
                 message: 'Internal server error'
             });
-            
+
             console.log(salt)
         }
 
@@ -244,14 +258,14 @@ app.post('/signup', jsonParser, function(req, res) {
                     message: 'Internal server error'
                 });
             }
-            
+
             console.log("we are about to create the user!")
 
             var user = new User({
                 username: username,
                 password: hash
             });
-            
+
             console.log("user created and is: ", user)
 
             user.save(function(err, user) {
@@ -294,7 +308,7 @@ app.get('/meals', function(req, res) {
 // enpoint to post a new meal
 app.post('/meals', function(req, res) {
 	console.log("WE ARE HITTING THE MEALS ENDPOINT!!!! ", req.body)
-        Item.create({name: req.body.name, date: new Date(req.body.date), meal: req.body.meal, nutrients: req.body.nutrients, username: req.user.username }, 
+        Item.create({name: req.body.name, date: new Date(req.body.date), meal: req.body.meal, nutrients: req.body.nutrients, username: req.user.username },
         function(err, items) {
             if (err) {
             	console.log("GOT AN ERROR BRAH ", err)
@@ -309,6 +323,7 @@ app.post('/meals', function(req, res) {
 
 // enpoint to change a meal
 app.put('/meals/:id', function(req, res){
+  console.log("Hellllo")
         var queryID = {_id: req.params.id}
         var updateItem = {name: req.body.name, _id: req.params.id, date: req.body.date, meal: req.body.meal, nutrients: req.body.nutrients}
         console.log("UPDATED ITEM", updateItem)
@@ -359,16 +374,16 @@ exports.runServer = runServer;
 
 // CRUD para los meals
 // Test CRUD
-// probrar con postman. 
-// Arreglar los navbars. sign in sign. 
+// probrar con postman.
+// Arreglar los navbars. sign in sign.
 
 
 
 
 
 
-// Despues. 
-// un GET endpoint /user-days -> Query a meals, que seleccines los dates, Unique. 
+// Despues.
+// un GET endpoint /user-days -> Query a meals, que seleccines los dates, Unique.
 
 
 // Endpoint para signup -> que haga render de pag de sign up

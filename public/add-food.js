@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  
+
   //// jQuery UI for date picker ///////
   var date_input=$('input[name="date"]'); //our date input has the name "date"
   var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
@@ -10,10 +10,11 @@ $(document).ready(function () {
     autoclose: true,
   };
   date_input.datepicker(options);
-  
+
   ///// Variables to obtain elements from the DOM ///////
-  
+
   var foodName = $('#foodInput');
+  var foodId = $('#foodID');
   var datePicker = $('#date');
   var mealType = $('#mealType');
   var saveMealButton = $('#saveBtn');
@@ -21,7 +22,7 @@ $(document).ready(function () {
   var foodPhoto = $('#foodPhoto');
   var foodInfoDiv = $('.foodInfo');
   var foodInfoTitle = $('#foodInfoTitle');
-  var nutritionTableTitle = $('.performance-facts__title');
+  var nutritionTableAmount = $('.performance_facts_amount');
   var caloriesFieldTable = $('#calories');
   var totalFatFieldTable = $('#total_fat');
   var saturatedFatFieldTable = $('#saturated_fat');
@@ -31,30 +32,30 @@ $(document).ready(function () {
   var fiberFieldTable = $('#dietary_fiber');
   var sugarFieldTable = $('#sugar');
   var proteinFieldTable = $('#protein');
-  
-  
-  
-  var state = {
-    mealId: ''
-  };
-  
+
+
   foodInfoDiv.hide();
-  
+
   /////// Requests ////////
-  
-  var onSaveMeal = function (name, date, meal, data){
+
+  var onSaveMeal = function (mealData){
     // name = foodName.val();
     // date = datePicker.val();
     // meal = mealType.val();
-    console.log("this is the food name", name)
-    console.log('this is the date', date)
-    console.log('this is the meal', meal)
-    console.log('this is the data', data)
-    var newMeal = {'name': name, 'date': date, 'meal': meal, 'nutrients': data};
-    console.log('this is the new meal', newMeal)
-    var ajax = $.ajax('/meals', {
-        type: 'POST',
-        data: JSON.stringify(newMeal),
+    console.log("this is the food name", mealData.name)
+    console.log('this is the date', mealData.date)
+    console.log('this is the meal', mealData.meal)
+    console.log('this is the data', mealData.data)
+
+    console.log('this is the new meal', mealData)
+
+    var typeOfRequest = foodId.val() ? 'PUT' : 'POST';
+    var requestURL = foodId.val() ? '/meals/'+foodId.val() : '/meals';
+    mealData.id = foodId.val();
+
+    var ajax = $.ajax(requestURL, {
+        type: typeOfRequest,
+        data: JSON.stringify(mealData),
         dataType: 'json',
         contentType: 'application/json'
     });
@@ -64,17 +65,18 @@ $(document).ready(function () {
       console.log('this is the id', state.mealId)
     });
   };
-  
-  
-  /////// Requests to Nutritionix ////////
-  
-  function getFoodRequest(searchTerm){
 
-		var searchTerm= searchTerm;
+
+  /////// Requests to Nutritionix ////////
+
+  function getFoodRequest(mealData){
+		var searchTerm = mealData.name;
 		var data = {
  			"query": searchTerm,
   			"timezone": "US/Eastern",
 		};
+
+
 
 		$.ajax({
   			url: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
@@ -82,17 +84,18 @@ $(document).ready(function () {
   			data: JSON.stringify(data),
   			headers: {
     			"Content-Type" : "application/json",
-    			"x-app-id": "c7faf842",  
-    			"x-app-key": "bc4a198b34d738f0f52d5f874775d99d",  
+    			"x-app-id": "c7faf842",
+    			"x-app-key": "bc4a198b34d738f0f52d5f874775d99d",
   			},
   			dataType: 'json',
   			success: function (data) {
     			// Este console.log te muestra el objeto que retornas
     			console.info(data);
-    
+
     			//Mostrar elemento en pantalla
     			console.log(data.foods)
-    			onSaveMeal(state.name, state.date, state.meal, data.foods)
+          mealData.nutrients=data;
+    			onSaveMeal(mealData)
     			showNutritionalValue(data);
     			var isRecommended = isFoodRecommended(data);
 				  showRecomendation(isRecommended);
@@ -106,9 +109,9 @@ $(document).ready(function () {
   			},
 		});
 	}
-	
+
 	////// Functions to filter data from Nutritionix //////
-	
+
 	function isFoodRecommended(data){
 		var isRecommended = true;
 		for (var i=0; i< data.foods[0].full_nutrients.length; i++){
@@ -128,14 +131,14 @@ $(document).ready(function () {
 		};
 		return isRecommended;
 	};
-	
+
 	////// Functions to display data on DOM //////
-	
+
 	function showNutritionalValue(data){
 		foodPhoto.attr('src', data.foods[0].photo.thumb);
 		foodInfoTitle.text('Information for:' + ' ' + data.foods[0].food_name);
 		// Nutritional table information fields
-		nutritionTableTitle.text("Nutrition Information"+ data.foods[0].serving_weight_grams + " grams");
+    nutritionTableAmount.text(data.foods[0].serving_weight_grams + " grams");
 		caloriesFieldTable.text(data.foods[0].nf_calories + " Kcal");
 		totalFatFieldTable.text(data.foods[0].nf_total_fat + " g");
 		saturatedFatFieldTable.text(data.foods[0].nf_saturated_fat + " g");
@@ -155,15 +158,13 @@ $(document).ready(function () {
 			recommendationDiv.append("<h2> Not Recommended!!! </h2><br/><p>If you have kidney diseases, this food is not a good choice because it is high in: carbohydrates, protein, potassium, phosphorus,sugar, and sodium. </p>");
 		}
 	};
-  
+
   /////// Events Listeners ///////
-  
+
   saveMealButton.click(function(event){
     event.preventDefault();
-    state.name = foodName.val();
-    state.date = datePicker.val();
-    state.meal = mealType.val();
-    getFoodRequest(state.name)
+    var newMeal = {'name': foodName.val(), 'date': datePicker.val(), 'meal': mealType.val(), 'id': foodId.val()};
+    getFoodRequest(newMeal)
     foodInfoDiv.show();
     foodName.val('');
     datePicker.val('');

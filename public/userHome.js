@@ -20,7 +20,7 @@ Array.prototype.unique = function() {
             arr.push(this[i]);
         }
     }
-    return arr; 
+    return arr;
 }
 
 ////// Requests //////
@@ -58,7 +58,7 @@ var saveSelectedDate = function(data){
 var appendDiaryDatesToTable = function (dates){
     dates.sort();
     for(var i = 0; i<dates.length; i++){
-        
+
         if(dates[i] !== null){
             var datesFormat = dates[i].split('T')[0];
             diaryDatesTable.append( '<a href="/report/'+ datesFormat +'" class="list-group-item" id= '+ dates[i] +'>' + datesFormat + '</a>');
@@ -66,12 +66,8 @@ var appendDiaryDatesToTable = function (dates){
     }
 }
 
-var appendUserToWelcomeMessage = function (res){
-    welcomeUser.text('Welcome' + ' ' + window.location.href.split("/")[window.location.href.split("/").length - 1])
-}
+
 
 $(document).ready(function(){
   getDatesOfMeals()
-  appendUserToWelcomeMessage()
 })
-

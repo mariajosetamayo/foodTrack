@@ -12,11 +12,11 @@
    position: relative;
    top: 7px;
  }
- 
+
  .foodInfo{
      margin-top: 5%;
  }
- 
+
 .infoTag{
   margin:20px 0px;
   padding: 0 15px;
@@ -77,7 +77,7 @@ p {
     font-weight: normal;
     text-align: left;
     padding: 0.25rem 0;
-    border-top: 1px solid black; 
+    border-top: 1px solid black;
     white-space: nowrap;
   }
   td {
@@ -105,7 +105,7 @@ p {
   margin: 0 0 0.5rem 0;
   thead {
     tr {
-      border-bottom: 1px solid black; 
+      border-bottom: 1px solid black;
     }
   }
   td {
@@ -146,4 +146,8 @@ p {
 
 .jumbotron h1{
     font-size: 50px;
+}
+
+.hidden{
+  display: none;
 }

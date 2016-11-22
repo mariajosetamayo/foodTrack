@@ -7,17 +7,23 @@ var reportTableBody = $('#reportTableBody');
 ////// Functions to create a daily report /////////
 
 var getValuesForMicronutrients = function(res){
+    console.log("asdasd");
+  console.log(res);
     var valuesForMeals = res.map(function(item){
-        for (var i = 0; i< item.nutrients[0].full_nutrients.length; i++){
-            var nutrient = item.nutrients[0].full_nutrients[i];
+
+        for (var i = 0; i< item.nutrients[0].foods[0].full_nutrients.length; i++){
+
+            var firstFood = item.nutrients[0].foods[0];
+
+            var nutrient = firstFood.full_nutrients[i];
             var nutrientID = nutrient.attr_id;
             var micronutrientsValuesArray = [];
-            var calories = {nutrient:'Calories', value: item.nutrients[0].nf_calories};
-            var carbohydrates = {nutrient: 'Carbohydrates', value: item.nutrients[0].nf_total_carbohydrate};
-            var proteins = {nutrient: 'Proteins', value: item.nutrients[0].nf_protein};
-            var sodium = {nutrient: 'Sodium', value: item.nutrients[0].nf_sodium};
-            var totalFat = {nutrient: 'totalFat', value: item.nutrients[0].nf_total_fat};
-            var sugar = {nutrient: 'Sugar', value: item.nutrients[0].nf_sugars};
+            var calories = {nutrient:'Calories', value: firstFood.nf_calories};
+            var carbohydrates = {nutrient: 'Carbohydrates', value: firstFood.nf_total_carbohydrate};
+            var proteins = {nutrient: 'Proteins', value: firstFood.nf_protein};
+            var sodium = {nutrient: 'Sodium', value: firstFood.nf_sodium};
+            var totalFat = {nutrient: 'totalFat', value: firstFood.nf_total_fat};
+            var sugar = {nutrient: 'Sugar', value: firstFood.nf_sugars};
             if(nutrientID === 305){
                 var phosphorus = {nutrient: 'Phosphorus', value: nutrient.value};
                 console.log(phosphorus);
@@ -93,7 +99,7 @@ var getValuesForMicronutrients = function(res){
     });
     console.log('these are the values for meals', valuesForMeals)
     addedDailyMicronutrients(valuesForMeals)
-     
+
 };
 
 var addedDailyMicronutrients = function (micronutrientsValuesArray){
@@ -150,13 +156,13 @@ var appendTitleToTable = function(){
 var appendMealsToTable = function(meals){
     for(var i = 0; i<meals.length; i ++){
         console.log('this is the meals id', meals[i]._id)
-       mealsTableBody.append('<tr id = '+ meals[i]._id +'><th scope="row">' + meals[i].name + '</th>' + '<td>' + meals[i].meal + '<td><a>Edit</a></td><td><a class = "remove">Remove</a></td></tr>') 
+       mealsTableBody.append('<tr id = '+ meals[i]._id +'><th scope="row">' + meals[i].name + '</th>' + '<td>' + meals[i].meal + '<td><a href="/addFood/'+meals[i]._id+'">Edit</a></td><td><a class = "remove">Remove</a></td></tr>')
     }
 }
 
 var appendValuesToReportTable = function(totalNutrients){
     for(var i = 0; i<totalNutrients.length; i ++){
-       reportTableBody.append('<tr><th scope="row">' + totalNutrients[i].nutrient + '</th>' + '<td>' + totalNutrients[i].value.toFixed(2) + '<td></tr>') 
+       reportTableBody.append('<tr><th scope="row">' + totalNutrients[i].nutrient + '</th>' + '<td>' + totalNutrients[i].value.toFixed(2) + '<td></tr>')
     }
 }
 
