@@ -18,78 +18,78 @@ var getValuesForMicronutrients = function(res){
             var nutrient = firstFood.full_nutrients[i];
             var nutrientID = nutrient.attr_id;
             var micronutrientsValuesArray = [];
-            var calories = {nutrient:'Calories', value: firstFood.nf_calories};
-            var carbohydrates = {nutrient: 'Carbohydrates', value: firstFood.nf_total_carbohydrate};
-            var proteins = {nutrient: 'Proteins', value: firstFood.nf_protein};
-            var sodium = {nutrient: 'Sodium', value: firstFood.nf_sodium};
-            var totalFat = {nutrient: 'totalFat', value: firstFood.nf_total_fat};
-            var sugar = {nutrient: 'Sugar', value: firstFood.nf_sugars};
+            var calories = {nutrient:'Calories', value: firstFood.nf_calories, units: 'Kcal'};
+            var carbohydrates = {nutrient: 'Carbohydrates', value: firstFood.nf_total_carbohydrate, units: 'g'};
+            var proteins = {nutrient: 'Proteins', value: firstFood.nf_protein, units: 'g'};
+            var sodium = {nutrient: 'Sodium', value: firstFood.nf_sodium, units: 'mg'};
+            var totalFat = {nutrient: 'totalFat', value: firstFood.nf_total_fat, units: 'g'};
+            var sugar = {nutrient: 'Sugar', value: firstFood.nf_sugars, units: 'g'};
             if(nutrientID === 305){
-                var phosphorus = {nutrient: 'Phosphorus', value: nutrient.value};
+                var phosphorus = {nutrient: 'Phosphorus', value: nutrient.value, units: 'mg'};
                 console.log(phosphorus);
             };
             if(nutrientID === 605){
-                var transFat = {nutrient: 'Trans Fat', value: nutrient.value};
+                var transFat = {nutrient: 'Trans Fat', value: nutrient.value, units: 'g'};
                 console.log(transFat);
             };
             if(nutrientID === 606){
-                var saturatedFat = {nutrient: 'Saturated Fat', value: nutrient.value};
+                var saturatedFat = {nutrient: 'Saturated Fat', value: nutrient.value, units: 'g'};
                 console.log(saturatedFat);
             };
             if(nutrientID === 301){
-                var calcium = {nutrient: 'Calcium', value: nutrient.value};
+                var calcium = {nutrient: 'Calcium', value: nutrient.value, units: 'mg'};
                 console.log(calcium);
             };
             if(nutrientID === 306){
-                var potassium = {nutrient: 'Potassium', value: nutrient.value};
+                var potassium = {nutrient: 'Potassium', value: nutrient.value, units: 'mg'};
                 console.log(potassium);
             };
             if(nutrientID === 324){
-                var vitaminD = {nutrient: 'Vitamin D', value: nutrient.value};
+                var vitaminD = {nutrient: 'Vitamin D', value: nutrient.value, units: 'IU'};
                 console.log(vitaminD);
             };
             if(nutrientID === 508){
-                var phenilananine = {nutrient: 'Phenylananine', value: nutrient.value};
+                var phenilananine = {nutrient: 'Phenylananine', value: nutrient.value, units: 'g'};
                 console.log(phenilananine);
             };
             if(nutrientID === 509){
-                var tyrosine = {nutrient: 'Tyrosine', value: nutrient.value};
+                var tyrosine = {nutrient: 'Tyrosine', value: nutrient.value, units: 'g'};
                 console.log(tyrosine);
             };
             if(nutrientID === 510){
-                var valine = {nutrient: 'Valine', value: nutrient.value};
+                var valine = {nutrient: 'Valine', value: nutrient.value, units: 'g'};
                 console.log(valine);
             };
             if(nutrientID === 511){
-                var arginine = {nutrient: 'Arginine', value: nutrient.value};
+                var arginine = {nutrient: 'Arginine', value: nutrient.value, units: 'g'};
                 console.log(arginine);
             };
             if(nutrientID === 512){
-                var histiadine = {nutrient: 'Histiadine', value: nutrient.value};
+                var histiadine = {nutrient: 'Histiadine', value: nutrient.value, units: 'g'};
                 console.log(histiadine);
             };
             if(nutrientID === 513){
-                var alanine = {nutrient: 'Alanine', value: nutrient.value};
+                var alanine = {nutrient: 'Alanine', value: nutrient.value, units: 'g'};
                 console.log(alanine);
             };
             if(nutrientID === 514){
-                var asparticAcid = {nutrient: 'Aspartic Acid', value: nutrient.value};
+                var asparticAcid = {nutrient: 'Aspartic Acid', value: nutrient.value, units: 'g'};
                 console.log(asparticAcid);
             };
             if(nutrientID === 515){
-                var glutamicAcid = {nutrient: 'Glutamic Acid', value: nutrient.value};
+                var glutamicAcid = {nutrient: 'Glutamic Acid', value: nutrient.value, units: 'g'};
                 console.log(glutamicAcid);
             };
             if(nutrientID === 516){
-                var glycine = {nutrient: 'Glycine', value: nutrient.value};
+                var glycine = {nutrient: 'Glycine', value: nutrient.value, units: 'g'};
                 console.log(glycine);
             };
             if(nutrientID === 517){
-                var proline = {nutrient: 'Proline', value: nutrient.value};
+                var proline = {nutrient: 'Proline', value: nutrient.value, units: 'g'};
                 console.log(proline);
             };
             if(nutrientID === 518){
-                var serine = {nutrient: 'Serine', value: nutrient.value};
+                var serine = {nutrient: 'Serine', value: nutrient.value, units: 'g'};
                 console.log(serine);
             };
 
@@ -115,6 +115,7 @@ var addedDailyMicronutrients = function (micronutrientsValuesArray){
         item.map(function (nutrient, index) {
             returnArray[index].nutrient = (nutrient && nutrient.nutrient) ? nutrient.nutrient : returnArray[index].nutrient
             returnArray[index].value = (nutrient && nutrient.value) ? returnArray[index].value + nutrient.value : returnArray[index].value
+            returnArray[index].units = (nutrient && nutrient.units) ? nutrient.units : returnArray[index].units
         })
     })
     console.log('this is the added array', returnArray)
@@ -164,7 +165,7 @@ var appendMealsToTable = function(meals){
 var appendValuesToReportTable = function(totalNutrients){
     for(var i = 0; i<totalNutrients.length; i ++){
         if(totalNutrients[i].value> 0.01){
-            reportTableBody.append('<tr><th scope="row">' + totalNutrients[i].nutrient + '</th>' + '<td>' + totalNutrients[i].value.toFixed(2) + '<td></tr>')
+            reportTableBody.append('<tr><th scope="row">' + totalNutrients[i].nutrient + '</th>' + '<td>' + totalNutrients[i].value.toFixed(2) + ' ' + totalNutrients[i].units +'<td></tr>')
         }
     }
 }
