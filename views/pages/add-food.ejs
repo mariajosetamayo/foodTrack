@@ -13,15 +13,15 @@
       <h1>Add a Meal</h1>
       <input type="text" class="form-control hidden" id="foodID" placeholder="" value="<%= item.id ? item.id : '' %>">
       <div class="form-group">
-        <label for="foodName">Food name and quantity</label>
+        <label for="foodName"><span class="text-muted">Food name and quantity</span></label>
         <input type="text" class="form-control" id="foodInput" aria-describedby="emailHelp" placeholder="Ex. 1 apple" value="<%= item.name ? item.name : '' %>">
       </div>
       <div class="form-group">
-        <label class="control-label" for="date">Date</label>
+        <label class="control-label" for="date"><span class="text-muted">Date</span></label>
         <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
       </div>
       <div class="form-group">
-        <label for="exampleSelect1">Meal type</label>
+        <label for="exampleSelect1"><span class="text-muted">Meal type</span></label>
         <select class="form-control" id="mealType">
           <option>Breakfast</option>
           <option>Lunch</option>
@@ -29,7 +29,7 @@
           <option>Snack</option>
         </select>
       </div>
-      <button type="submit" id = "saveBtn" class="btn btn-primary">Save</button>
+      <button type="submit" id = "saveBtn" class="btn btn-success">Save</button>
     </form>
     <div class="jumbotron foodInfo">
       <h1 id ="foodInfoTitle"></h1>
@@ -41,8 +41,6 @@
                 <header class="performance-facts__header">
                   <h1 class="performance-facts__title">Nutrition Facts</h1>
                   <h3 class="performance_facts_amount"></h3>
-
-
                 </header>
                 <table class="performance-facts__table">
                   <thead>
