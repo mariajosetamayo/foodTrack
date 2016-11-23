@@ -3,6 +3,7 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var server = require('../server.js');
 var Item = require('../models/food');
+var Users = require('../models/users');
 var app = server.app;
 
 var should = chai.should();
@@ -31,9 +32,9 @@ describe('Add meals', function() {
     before(function(done) { //seed db by adding sample data to use in tests
         server.runServer(function() {
             Item.remove(function() {
-                Item.create({name: '1 Broad beans can', date: '2016-11-09', meal: 'lunch'},
-                {name: '2 Tomatoes', date: '2016-11-08', meal: 'lunch'},
-                {name: '1 Apple', date: '2016-11-07', meal: 'breakfast'}, function() {
+                Item.create({name: '1 Broad beans can', date: '2016-11-09', meal: 'lunch', nutrients:[], username: 'juan'},
+                {name: '2 Tomatoes', date: '2016-11-08', meal: 'lunch', nutrients:[], username: 'juan'},
+                {name: '1 Apple', date: '2016-11-07', meal: 'breakfast', nutrients:[], username: 'juan'}, function() {
                 done();
                 });
             });
@@ -42,7 +43,9 @@ describe('Add meals', function() {
     it('should list items of meals on GET', function(done) { //function called to tell mocha that the test has completed. Always include in it blocks.
         chai.request(app) // tells chai to make request to the app
         .get('/meals') // call get to make a get request to the /items endpoint
+        // .send({username: 'juan' })
         .end(function(err, res) { // end method runs the function which you pass in when the request is complete
+            // console.log('this is the response', res)
             should.equal(err, null);
             res.should.have.status(200); // should style assetion says that the response should have a 200 status code
             res.should.be.json;
@@ -67,7 +70,7 @@ describe('Add meals', function() {
     it('should add an item on POST', function(done) {
         chai.request(app)
         .post('/meals')
-        .send({'name': 'Kale', date: '2016-11-09', meal: 'lunch' })
+        .send({'name': 'Kale', date: '2016-11-09', meal: 'lunch', nutrients:[], username: 'carlos' })
         .end(function(err, res) {
             should.equal(err, null);
             res.should.have.status(201);
@@ -103,7 +106,7 @@ describe('Add meals', function() {
     it('should edit a new item on PUT', function(done) { 
         chai.request(app) 
         .put('/meals/'+ itemID) 
-        .send({name: 'carrot', id:itemID}) 
+        .send({name: 'carrot', id:itemID, date: '2016-11-12', meal: 'lunch', nutrients:[], username: 'maria'}) 
         .end(function(err, res) { 
             should.equal(err, null); 
             res.should.have.status(201); 

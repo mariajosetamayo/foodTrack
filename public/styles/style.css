@@ -25,16 +25,18 @@ a:hover {
  */
 
 html,
-body {
+/*body {
   height: 100%;
   background-color: #333;
   background-image: url('../images/foodTrack3.jpg');
   background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
+  background-size: cover;
+  background-position: 50% 50%;
+}*/
 body {
   color: #fff;
   text-align: center;
+  background-color: #292421;
   text-shadow: 0 1px 3px rgba(0,0,0,.5);
 }
 
@@ -56,10 +58,14 @@ body {
   margin-left: auto;
 }
 
-/* Padding for spacing */
-.inner {
-  padding: 30px;
+.lead {
+  font-weight: bold;
 }
+
+/* Padding for spacing */
+/*.inner {
+  padding: 30px;
+}*/
 
 
 /*
@@ -117,7 +123,14 @@ body {
  */
 
 .cover {
-  padding: 480px 20px;
+  width: 100%;
+  max-height: 700px;
+  padding: 60% 0 40% 0;
+  background-image: url('../images/foodTrack3.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  /*padding: 480px 20px;*/
 }
 .cover .btn-lg {
   padding: 10px 20px;
@@ -139,8 +152,8 @@ body {
 }
 
 .foodTrackIntroInfo{
-  background-color: #333333;
-  margin-top: -55%;
+  background-color: #292421;
+  /*margin-top: -55%;*/
 }
 
 .btn-default:hover {
@@ -221,6 +234,70 @@ body {
 }
 
 @media (min-width: 62em){
-.featurette-heading {
-    margin-top: 2rem;
+  .featurette-heading {
+      margin-top: 2rem;
+  }
 }
+
+@media (min-width: 768px) {
+  .container {
+    width: auto; 
+  }
+}
+
+
+@media (max-width: 775px) {
+  .navbar-header {
+      float: none;
+  }
+  .navbar-left,.navbar-right {
+      float: none !important;
+  }
+  .navbar-toggle {
+      display: block;
+  }
+  .navbar-collapse {
+      border-top: 1px solid transparent;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  .navbar-fixed-top {
+      top: 0;
+      border-width: 0 0 1px;
+  }
+  .navbar-collapse.collapse {
+      display: none!important;
+  }
+  .navbar-nav {
+      float: none!important;
+      margin-top: 7.5px;
+  }
+  .navbar-nav>li {
+      float: none;
+  }
+  .navbar-nav>li>a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+  .collapse.in{
+      display:block !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .masthead, .mastfoot, .cover-container {
+      width: 900px;
+  }
+}
+
+@media (max-width: 550px) {
+  .cover {
+    padding: 90% 0 10% 0;
+  }
+}
+
+/*@media (min-width: 768px) and (max-width: 990px) {
+  .navbar-brand img{
+    margin-top: -34%;
+    margin-left: -30%;
+  }  
+}*/
