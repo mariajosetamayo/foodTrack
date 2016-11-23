@@ -28,7 +28,17 @@ describe('main page', function(){
 describe('Add meals', function() {
     
     var itemID; 
-    
+    // before(function(done) { //seed db by adding sample data to use in tests
+    //     server.runServer(function() {
+    //         Item.remove(function() {
+    //             Users.create({username: 'juan', password: 'juanillo'},
+    //             function() {
+    //             done();
+    //             });
+    //         });
+    //     });
+    // });
+
     before(function(done) { //seed db by adding sample data to use in tests
         server.runServer(function() {
             Item.remove(function() {
@@ -38,12 +48,14 @@ describe('Add meals', function() {
                 done();
                 });
             });
+            console.log('this is the item', Item.name)
         });
     });
+
+
     it('should list items of meals on GET', function(done) { //function called to tell mocha that the test has completed. Always include in it blocks.
-        chai.request(app) // tells chai to make request to the app
-        .get('/meals') // call get to make a get request to the /items endpoint
-        // .send({username: 'juan' })
+            chai.request(app) // tells chai to make request to the app
+            .get('/meals') // call get to make a get request to the /items endpoint
         .end(function(err, res) { // end method runs the function which you pass in when the request is complete
             // console.log('this is the response', res)
             should.equal(err, null);
@@ -56,6 +68,7 @@ describe('Add meals', function() {
             res.body[0].should.have.property('name');
             res.body[0].should.have.property('date');
             res.body[0].should.have.property('meal');
+            res.body[0].should.have.property('username');
             res.body[0].name.should.be.a('string');
             res.body[0]._id.should.be.a('string');
             res.body[0].date.should.be.a('string');

@@ -295,7 +295,7 @@ app.get("/logout", function (req,res) {
 var Item = require('./models/food');
 
 // endpoint to get the meals
-app.get('/meals', function(req, res) {
+app.get('/meals', app.isAuthenticated, function(req, res) {
     Item.find({ username: req.user.username }, function(err, items) { //fetches a list of all the items from the DB using find. Returns json
         if (err) {
             return res.status(500).json({
@@ -307,7 +307,7 @@ app.get('/meals', function(req, res) {
 });
 
 // enpoint to post a new meal
-app.post('/meals', function(req, res) {
+app.post('/meals', app.isAuthenticated, function(req, res) {
 	console.log("WE ARE HITTING THE MEALS ENDPOINT!!!! ", req.body)
         Item.create({name: req.body.name, date: new Date(req.body.date), meal: req.body.meal, nutrients: req.body.nutrients, username: req.user.username },
         function(err, items) {
@@ -323,7 +323,7 @@ app.post('/meals', function(req, res) {
 });
 
 // enpoint to change a meal
-app.put('/meals/:id', function(req, res){
+app.put('/meals/:id', app.isAuthenticated, function(req, res){
   console.log("Hellllo")
         var queryID = {_id: req.params.id}
         var updateItem = {name: req.body.name, _id: req.params.id, date: req.body.date, meal: req.body.meal, nutrients: req.body.nutrients}
@@ -341,7 +341,7 @@ app.put('/meals/:id', function(req, res){
 });
 
 // enpoint to delete a meal
-app.delete('/meals/:id', function(req, res){
+app.delete('/meals/:id', app.isAuthenticated, function(req, res){
 		console.log('we are hitting the delete enpoint')
         var chosenItemID = {_id: req.params.id}
         Item.findOneAndRemove({_id: req.params.id},
@@ -356,7 +356,7 @@ app.delete('/meals/:id', function(req, res){
 });
 
 // endpoint for selected date
-app.post('/reports', function(req, res){
+app.post('/reports', app.isAuthenticated, function(req, res){
     var chosenMealToView = {meals: req.body}
     res.json(chosenMealToView);
 })
