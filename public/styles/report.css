@@ -8,17 +8,26 @@ body{
 }
 
 .titleTable{
-    margin-top: 20%;
+  margin-top: 17%;
+}
+
+#nutritionInfoTitle{
+	margin-top: 10%;
 }
 
 .homeBtn{
 	margin-bottom: 10%;
-    margin-top: 5%;
+  margin-top: 5%;
 }
 
 a{
 	color: #4caf50;
 	text-decoration: none;
+}
+
+.table>thead>tr>th{
+	border-bottom: none !important;
+	font-size: 20px;
 }
 
 @media (min-width: 0px) and (max-width: 391px){

@@ -2,6 +2,10 @@ body{
   background-color: #333333;
 }
 
+.jumbotron{
+  background-color: #333333;
+}
+
 .logoutBtn{
     margin-top: 1%;
 }
@@ -250,13 +254,13 @@ p {
   display: none;
 }
 
-.foodInfo{
-  background-color: #333333;
-  color: white;
-}
 
 .card-block{
   color: black;
+}
+
+.foodInfoCol{
+  margin-top: 3%;
 }
 
 #recommendationDiv{

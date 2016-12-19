@@ -10,17 +10,19 @@
     <div class="container">
       <% include ../partials/header %>
       <div class="jumbotron">
-        <h1 id="welcomeUser">Welcome <%= username %>!</h1>
-        <p>Add a new meal by pressing the button or consult your diary entries by clicking on an item on the table below.</p>
-        <p>
-          <a class="btn btn-lg btn-success" href="/addFood" role="button">Add a new meal</a>
-        </p>
-      </div>
+        <div class="welcomeDiv">
+          <h1 id="welcomeUser">Welcome <%= username %>!</h1>
+          <p>Add a new meal by pressing the button or consult your diary entries by clicking on an item on the table below.</p>
+          <p>
+            <a class="btn btn-lg btn-success" href="/addFood" role="button">Add a new meal</a>
+          </p>
+        </div>
 
-      <div class="list-group " id="diaryDates">
-        <a href="#" class="list-group-item list-group-item-success">
-          Diary entries
-        </a>
+        <div class="list-group " id="diaryDates">
+          <a href="#" class="list-group-item list-group-item-success">
+            Diary entries
+          </a>
+        </div>
       </div>
     </div> <!-- /container -->
     <footer>

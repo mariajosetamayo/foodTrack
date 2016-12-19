@@ -23,16 +23,19 @@ a:hover {
 /*
  * Base structure
  */
-
-html,
-/*body {
+body, html{
+  margin:0;
+  padding:0;
+}
+/*html,*/
+html {
   height: 100%;
   background-color: #333;
   background-image: url('../images/foodTrack3.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 50%;
-}*/
+}
 body {
   color: #fff;
   text-align: center;
@@ -56,6 +59,11 @@ body {
 .cover-container {
   margin-right: auto;
   margin-left: auto;
+  width: 100%;
+}
+
+.photoContainer{
+  width: 100%;
 }
 
 .lead {
@@ -124,8 +132,9 @@ body {
 
 .cover {
   width: 100%;
+  /*width: 100vw;*/
   max-height: 700px;
-  padding: 60% 0 40% 0;
+  padding: 44% 0 20% 0;
   background-image: url('../images/foodTrack3.jpg');
   background-repeat: no-repeat;
   background-size: cover;
@@ -166,12 +175,10 @@ body {
 
 .homeImg2{
   width: 100%;
-  margin-top: 11%;
 }
 
 .homeImg3{
   width: 100%;
-  margin-top: 15%;
 }
 
 
@@ -189,7 +196,11 @@ body {
 /*
  * Affix and center
  */
-
+@media (min-width: 550px) and (max-width: 1042px) {
+  .cover{
+    padding: 62% 0 20% 0;
+  }
+}
 @media (min-width: 768px) {
   /* Pull out the header and footer */
   .masthead {
@@ -204,20 +215,18 @@ body {
   .site-wrapper-inner {
     vertical-align: middle;
   }
+  
   /* Handle the widths */
   .masthead,
   .mastfoot,
-  .cover-container {
-    width: 100%; /* Must be percentage or pixels for horizontal alignment */
-  }
+  /*.cover-container {
+    width: 100%;  Must be percentage or pixels for horizontal alignment 
+  }*/
 }
 
 @media (min-width: 992px) {
   .masthead,
   .mastfoot,
-  .cover-container {
-    width: 700px;
-  }
 }
 
 @media (min-width: 40em) {
@@ -284,7 +293,7 @@ body {
 }
 
 @media (min-width: 992px) {
-  .masthead, .mastfoot, .cover-container {
+  .masthead, .mastfoot {
       width: 900px;
   }
 }
