@@ -67,7 +67,7 @@ function requestFoodInformationFromNutritionix(mealData){
     },
     error: function (request, status, error) {
       // Console.logs to get error information
-      foodInfoTitle.text('Sorry! We could not find this food item in our database');
+      titleOfFoodInformationContainer.text('Sorry! We could not find this food item in our database');
       console.log(request.responseText);
       console.log(error);
       console.log(status);
