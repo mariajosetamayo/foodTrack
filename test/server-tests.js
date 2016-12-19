@@ -204,6 +204,30 @@ describe('login / logout tests:', function(){
         });
       });
     });
+
+    it('should delete an item on delete', function(done) {
+      server2
+      .delete('/meals/'+ itemID)
+      .end(function(err, res) {
+        should.equal(err, null);
+        res.should.have.status(201);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('_id');
+        res.body._id.should.be.a('string');
+        res.body._id.should.equal(itemID);
+
+        //test db
+        Item.count({}, function( err, count){
+          count.should.equal(3); //test del length
+        })
+        Item.findOne({_id: itemID},
+        function(err, items){
+          should.equal(items, null);
+          done();
+        });
+      });
+    });
   });
 
   var Browser = require('zombie');
