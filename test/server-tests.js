@@ -174,67 +174,96 @@ describe('login / logout tests:', function(){
       });
     });
   });
-});
 
-var Browser = require('zombie');
-var assert = require('assert');
-var Url = require("url");
+  it('should edit a new item on PUT', function(done) {
+    server2
+    .put('/meals/'+ itemID)
+    .send({name: 'carrot', id:itemID, date: '2016-11-12', meal: 'lunch', nutrients:[], username: 'mariaaaa'})
+    .end(function(err, res) {
+      should.equal(err, null);
+      res.should.have.status(201);
+      res.should.be.json;
+      res.body.should.be.a('object');
+      res.body.should.have.property('name');
+      res.body.should.have.property('_id');
+      res.body.name.should.be.a('string');
+      res.body._id.should.be.a('string');
+      res.body.name.should.equal('carrot');
 
-Browser.localhost('foodtrack.com', 3000);
+
+      // tests database
+      Item.count({}, function( err, count){
+        count.should.equal(4); //test del length
+      });
+
+      Item.findOne({_id: itemID},
+        function(err, items){
+          should.not.equal(items, null);
+          items.name.should.equal('carrot');  //find one y ver si se actualizo.
+          done();
+        });
+      });
+    });
+  });
+
+  var Browser = require('zombie');
+  var assert = require('assert');
+  var Url = require("url");
+
+  Browser.localhost('foodtrack.com', 3000);
 
 
-describe('User visits user-home', function(){
+  describe('User visits user-home', function(){
     it('should show a welcome message for user');
     it ('should take user to add food page when button is clicked');
     it ('should take user to food report when date is clicked');
-});
+  });
 
-describe('User visits add food page', function(){
+  describe('User visits add food page', function(){
     it('should allow user to fill form for meal information');
     it('should POST the meal when click is pressed');
-});
+  });
 
-describe('User visits report page', function(){
+  describe('User visits report page', function(){
     it('should display the saved meal and its details');
-})
+  })
 
-    // var browser = new Browser();
+  // var browser = new Browser();
 
-    // before(function(done){
-    //     browser.visit('/user-home');
-    //     done();
-    // });
+  // before(function(done){
+  //     browser.visit('/user-home');
+  //     done();
+  // });
 
-    // describe('takes user to add item when button is pressed', function(){
-    //     // before(function(done){
-    //     //     browser
-    //     //         .pressButton('add a meal');
-    //     //         done();
-    //     // });
+  // describe('takes user to add item when button is pressed', function(){
+  //     // before(function(done){
+  //     //     browser
+  //     //         .pressButton('add a meal');
+  //     //         done();
+  //     // });
 
-    //     it('should welcome user', function(){
-    //         browser.assert.text('title', 'Welcome username');
-    //     });
-    // });
+  //     it('should welcome user', function(){
+  //         browser.assert.text('title', 'Welcome username');
+  //     });
+  // });
 
-    // it('should show the user-home', function(){
-    //     browser.assert.sucess();
-    // });
+  // it('should show the user-home', function(){
+  //     browser.assert.sucess();
+  // });
 
-    // before(function(){
-    //     this.server = http.createServer(app).listen(3000);
-    //     this.browser = new Browser({site:'http://localhost:3000'});
-    // });
+  // before(function(){
+  //     this.server = http.createServer(app).listen(3000);
+  //     this.browser = new Browser({site:'http://localhost:3000'});
+  // });
 
-    // beforeEach(function(done){
-    //     this.browser.visit('/user-home', done);
-    // });
+  // beforeEach(function(done){
+  //     this.browser.visit('/user-home', done);
+  // });
 
-    // it('should show the user-home page', function(){
-    //     assert.ok(this.browser.sucess);
-    // });
+  // it('should show the user-home page', function(){
+  //     assert.ok(this.browser.sucess);
+  // });
 
-    // after(function(done){
-    //     this.server.close(done);
-    // });
-
+  // after(function(done){
+  //     this.server.close(done);
+  // });
