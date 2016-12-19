@@ -5,7 +5,7 @@ var foodNameEnteredByUser = $('#foodInput');
 var foodId = $('#foodID');
 var datePickedByUserForMeal = $('#date');
 var mealTypeSelectedByUser = $('#mealType');
-var dateEnteredByUser = $('input[name="date"]'); 
+var dateEnteredByUser = $('input[name="date"]');
 var datesCalendarContainer = $('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
 var saveMealButton = $('#saveBtn');
 var containerToDisplayrecommendation = $('#recommendationDiv');
@@ -21,7 +21,7 @@ var sodiumFieldTableNutritionTable = $('#sodium');
 var carbohydratesFieldNutritionTable = $('#total_carbs');
 var fiberFieldNutritionTable = $('#dietary_fiber');
 var sugarFieldNutritionTable = $('#sugar');
-var proteinFieldNutritionTable = $('#protein'); 
+var proteinFieldNutritionTable = $('#protein');
 
 /////// Requests to server.js ////////
 
@@ -82,7 +82,7 @@ function isFoodRecommended(data){
   for (var i=0; i< data.foods[0].full_nutrients.length; i++){
     var nutrient = data.foods[0].full_nutrients[i];
     var nutrientID = nutrient.attr_id;
-    
+
     if(nutrientID === 305){
       var phosphorus = nutrient.value;
     }
@@ -101,10 +101,10 @@ function isFoodRecommended(data){
 
 function showNutritionalValue(data){
   savedFoodPhoto.attr('src', data.foods[0].photo.thumb);
-  titleOfFoodInformationContainer.text('Information for:' + ' ' + data.foods[0].food_name);
-  
+  titleOfFoodInformationContainer.text('Information for' + ' ' + data.foods[0].food_name);
+
   // Nutritional table information fields
-  
+
   foodPortionFieldNutritionTable.text(data.foods[0].serving_weight_grams + " grams");
   caloriesFieldNutritionTable.text(data.foods[0].nf_calories + " Kcal");
   totalFatFieldNutritionTable.text(data.foods[0].nf_total_fat + " g");
@@ -152,5 +152,5 @@ saveMealButton.click(function(event){
 
 $(document).ready(function () {
   dateEnteredByUser.datepicker(datesCalendarToSelectDate);
-  containerToDisplayFoodInformation.hide();  
+  containerToDisplayFoodInformation.hide();
 });
