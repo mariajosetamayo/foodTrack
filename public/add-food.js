@@ -126,8 +126,6 @@ function showRecomendation(foodIsRecommended){
   }
 };
 
-
-
 // jQuery UI for date picker //
 
 var datesCalendarToSelectDate = {
