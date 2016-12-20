@@ -234,23 +234,52 @@ describe('login / logout tests:', function(){
   var assert = require('assert');
   var Url = require("url");
 
-  Browser.localhost('foodtrack.com', 3000);
-
+  Browser.localhost('example.com',3000);
 
   describe('User visits user-home', function(){
-    it('should show a welcome message for user');
-    it ('should take user to add food page when button is clicked');
-    it ('should take user to food report when date is clicked');
+
+    var browser = new Browser ();
+
+    before(function(done){
+      browser.visit('/user-home', done);
+    });
+
+    it('should show welcome page', function(){
+      browser.assert.success();
+      browser.assert.text('title', 'FoodTrack');
+    });
   });
 
-  describe('User visits add food page', function(){
-    it('should allow user to fill form for meal information');
-    it('should POST the meal when click is pressed');
+  describe('User visits add meal page', function(){
+
+    var browser = new Browser();
+
+    before(function(done){
+      browser.visit('/addFood', done);
+    });
+
+    it('should show add meal page', function(){
+      browser.assert.success();
+    });
   });
 
-  describe('User visits report page', function(){
-    it('should display the saved meal and its details');
-  })
+
+
+
+  //   it('should show a welcome message for user');
+  //   it ('should take user to add food page when button is clicked');
+  //   it ('should take user to food report when date is clicked');
+  // });
+
+//   describe('User visits add food page', function(){
+//     it('should allow user to fill form for meal information');
+//     it('should POST the meal when click is pressed');
+//   });
+//
+//   describe('User visits report page', function(){
+//     it('should display the saved meal and its details');
+//   })
+// })
 
   // var browser = new Browser();
 
