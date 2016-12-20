@@ -1,6 +1,4 @@
 global.DATABASE_URL = 'mongodb://localhost/foodtrack-test';
-// global.DATABASE_URL = 'mongodb://mjtamayo:milanka@ds155737.mlab.com:55737/foodtrack';
-// global.DATABASE_URL = 'mongodb://jack:jack@ds023118.mlab.com:23118/blackjack';
 
 var mongoose = require('mongoose');
 var chai = require('chai');
@@ -247,6 +245,14 @@ describe('login / logout tests:', function(){
     it('should show welcome page', function(){
       browser.assert.success();
       browser.assert.text('title', 'FoodTrack');
+      browser.assert.text('h1', '');
+    });
+
+    it('should take to add meal page when button is clicked', function(){
+      browser.pressButton('button', function(){
+        browser.assert.success();
+        browser.assert.redirected();
+      });
     });
   });
 
@@ -261,62 +267,14 @@ describe('login / logout tests:', function(){
     it('should show add meal page', function(){
       browser.assert.success();
     });
+
+    it('should set value of meal inputs and save the meal', function(){
+      // browser.fill('#foodInput', 'carrot');
+      // browser.fill('#date', '12-15-2016');
+      browser.selectOption('#mealType', 'lunch');
+      browser.pressButton('button', function(){
+          browser.assert.success();
+          browser.assert.equal(('#mealType').value, 'lunch');
+      });
+    });
   });
-
-
-
-
-  //   it('should show a welcome message for user');
-  //   it ('should take user to add food page when button is clicked');
-  //   it ('should take user to food report when date is clicked');
-  // });
-
-//   describe('User visits add food page', function(){
-//     it('should allow user to fill form for meal information');
-//     it('should POST the meal when click is pressed');
-//   });
-//
-//   describe('User visits report page', function(){
-//     it('should display the saved meal and its details');
-//   })
-// })
-
-  // var browser = new Browser();
-
-  // before(function(done){
-  //     browser.visit('/user-home');
-  //     done();
-  // });
-
-  // describe('takes user to add item when button is pressed', function(){
-  //     // before(function(done){
-  //     //     browser
-  //     //         .pressButton('add a meal');
-  //     //         done();
-  //     // });
-
-  //     it('should welcome user', function(){
-  //         browser.assert.text('title', 'Welcome username');
-  //     });
-  // });
-
-  // it('should show the user-home', function(){
-  //     browser.assert.sucess();
-  // });
-
-  // before(function(){
-  //     this.server = http.createServer(app).listen(3000);
-  //     this.browser = new Browser({site:'http://localhost:3000'});
-  // });
-
-  // beforeEach(function(done){
-  //     this.browser.visit('/user-home', done);
-  // });
-
-  // it('should show the user-home page', function(){
-  //     assert.ok(this.browser.sucess);
-  // });
-
-  // after(function(done){
-  //     this.server.close(done);
-  // });
