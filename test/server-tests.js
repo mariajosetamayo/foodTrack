@@ -269,11 +269,13 @@ describe('login / logout tests:', function(){
     });
 
     it('should set value of meal inputs and save the meal', function(){
-      // browser.fill('#foodInput', 'carrot');
-      // browser.fill('#date', '12-15-2016');
+      browser.fill('input', 'carrot');
+      browser.fill('input', '12-15-2016');
       browser.selectOption('#mealType', 'lunch');
       browser.pressButton('button', function(){
           browser.assert.success();
+          browser.assert.equal(('input').value, 'carrot');
+          browser.assert.equal(('input').value, '12-15-2016');
           browser.assert.equal(('#mealType').value, 'lunch');
       });
     });
