@@ -85,9 +85,6 @@ describe('login / logout tests:', function(){
       res.body.should.be.a('object');
       res.body.should.have.property('message');
       res.body.message.should.equal('success');
-      // res.body.should.to.have.property('token');
-      // token = res.body.token;
-
       done();
     });
   });
@@ -115,7 +112,7 @@ describe('login / logout tests:', function(){
     .end(function(err, res){
       if (err) return done(err);
       console.log(res.body);
-      res.should.have.status(200); // should style assetion says that the response should have a 200 status code
+      res.should.have.status(200); // should style assertion says that the response should have a 200 status code
       res.should.be.json;
       res.body.should.be.a('array');
       res.body.should.have.length(3);
@@ -167,8 +164,6 @@ describe('login / logout tests:', function(){
         console.log("items"+ items)
         items.name.should.equal('Kale');
         done();
-        // buscar que findOne usando res.body._id
-        // longitud ++
       });
     });
   });
@@ -197,7 +192,7 @@ describe('login / logout tests:', function(){
       Item.findOne({_id: itemID},
         function(err, items){
           should.not.equal(items, null);
-          items.name.should.equal('carrot');  //find one y ver si se actualizo.
+          items.name.should.equal('carrot');  //find one and see if it updated
           done();
         });
       });
@@ -217,7 +212,7 @@ describe('login / logout tests:', function(){
 
         //test db
         Item.count({}, function( err, count){
-          count.should.equal(3); //test del length
+          count.should.equal(3); //test of length
         })
         Item.findOne({_id: itemID},
         function(err, items){
