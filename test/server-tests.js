@@ -234,7 +234,7 @@ describe('login / logout tests:', function(){
     var browser = new Browser ();
 
     before(function(done){
-      browser.visit('/user-home', done);
+      return browser.visit('/user-home', done);
     });
 
     it('should show welcome page', function(){
@@ -247,6 +247,7 @@ describe('login / logout tests:', function(){
       browser.pressButton('button', function(){
         browser.assert.success();
         browser.assert.redirected();
+        browser.assert.equal('http://localhost:3000/addFood', b.location.href);
       });
     });
   });
@@ -256,11 +257,13 @@ describe('login / logout tests:', function(){
     var browser = new Browser();
 
     before(function(done){
-      browser.visit('/addFood', done);
+      return browser.visit('/addFood', done);
     });
 
     it('should show add meal page', function(){
       browser.assert.success();
+      browser.assert.elements('form', 1);
+      browser.assert.elements('form input', 2);
     });
 
     it('should set value of meal inputs and save the meal', function(){
