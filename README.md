@@ -70,4 +70,4 @@ GET, POST, PUT, DELETE
 
 ##Acknowledgments
 
-Special thanks to Nutritionix for their awesome API. 
+Special thanks to Nutritionix, whose API makes this app possible.
