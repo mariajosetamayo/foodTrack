@@ -70,7 +70,8 @@ GET, POST, PUT, DELETE
 - Libraries used include: Bootstrap, jQuery, and Mongoose.
 - Authentication is made using Passport.
 - Unit tests use Mocha, Chai, Supertest, and Zombie.js.
+- FoodTrack uses the Nutritionix API for acquiring food information data.
 
 ##Acknowledgments
 
-This app uses the Nutritionix API. 
+Special thanks to Nutritionix for their awesome API. 
