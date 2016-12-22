@@ -41,14 +41,12 @@ GET, POST, PUT, DELETE
     date: '2016-11-08T00:00:00.000Z',
     meal: 'lunch',
     username: 'mariaaaa',
-    __v: 0,
     nutrients: [] },
   { _id: '585b2498b6a5d3134aa97026',
     name: '1 Apple',
     date: '2016-11-07T00:00:00.000Z',
     meal: 'breakfast',
     username: 'maria',
-    __v: 0,
     nutrients: [] } ]
     
  
@@ -59,7 +57,6 @@ GET, POST, PUT, DELETE
   date: Tue Nov 08 2016 17:00:00 GMT-0700 (MST),
   meal: 'lunch',
   username: 'maria',
-  __v: 0,
   nutrients: [] }
 
 ##Technology used
