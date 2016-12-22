@@ -33,7 +33,7 @@ GET, POST, PUT, DELETE
     name: '1 Broad beans can',
     date: '2016-11-09T00:00:00.000Z',
     meal: 'lunch',
-    username: 'mariaaaa',
+    username: 'maria',
     __v: 0,
     nutrients: [] },
   { _id: '585b2498b6a5d3134aa97025',
@@ -47,18 +47,18 @@ GET, POST, PUT, DELETE
     name: '1 Apple',
     date: '2016-11-07T00:00:00.000Z',
     meal: 'breakfast',
-    username: 'mariaaaa',
+    username: 'maria',
     __v: 0,
     nutrients: [] } ]
     
  
- ###Example POST response
+###Example POST response
  
  { _id: 585b2499b6a5d3134aa97028,
   name: 'Kale',
   date: Tue Nov 08 2016 17:00:00 GMT-0700 (MST),
   meal: 'lunch',
-  username: 'mariaaaa',
+  username: 'maria',
   __v: 0,
   nutrients: [] }
 
