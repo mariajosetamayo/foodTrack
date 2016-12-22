@@ -2,7 +2,7 @@
 
 Use this application to keep track of what you eat, get recommendations based on the food's nutritional information, and get a daily report summarizing the nutrients you consumed. 
 
-<img src = "https://cloud.githubusercontent.com/assets/16930791/21410460/165b4230-c79e-11e6-91f1-ef96a668f79f.jpg" width="420"/> <img src = "https://cloud.githubusercontent.com/assets/16930791/21410038/349b646c-c79b-11e6-944d-38c3655af328.png" width="400" height="220"/>
+<img src = "https://cloud.githubusercontent.com/assets/16930791/21410460/165b4230-c79e-11e6-91f1-ef96a668f79f.jpg" width="420"/> <img src = "https://cloud.githubusercontent.com/assets/16930791/21410726/34c8c218-c7a0-11e6-8e54-ea20d56a9e07.jpg" width="400" height="220"/>
 
 <img src = "https://cloud.githubusercontent.com/assets/16930791/21409707/e52bb6f4-c798-11e6-9959-5b213153859a.jpg" width="420"/> <img src = "https://cloud.githubusercontent.com/assets/16930791/21409710/ea5c8252-c798-11e6-96b8-91c40491dce9.jpg" width = "400" height="220"/>
 
