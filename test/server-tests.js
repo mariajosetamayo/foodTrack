@@ -78,7 +78,6 @@ describe('login / logout tests:', function(){
     .post('/login')
     .send({ username: 'mariaaaa', password: 'maria' })
     .end(function(err,res){
-      //console.log(res)
       res.should.have.status(200);
       res.should.be.json;
       should.equal(err, null);
@@ -154,9 +153,8 @@ describe('login / logout tests:', function(){
       res.body.name.should.equal('Kale');
       itemID=res.body._id;
       // Test database
-
       Item.count({}, function( err, count){
-        count.should.equal(4); //test del length
+        count.should.equal(4);
       })
       Item.findOne({name: 'Kale'},
       function(err, items){
@@ -182,8 +180,6 @@ describe('login / logout tests:', function(){
       res.body.name.should.be.a('string');
       res.body._id.should.be.a('string');
       res.body.name.should.equal('carrot');
-
-
       // tests database
       Item.count({}, function( err, count){
         count.should.equal(4); //test del length
@@ -209,7 +205,6 @@ describe('login / logout tests:', function(){
         res.body.should.have.property('_id');
         res.body._id.should.be.a('string');
         res.body._id.should.equal(itemID);
-
         //test db
         Item.count({}, function( err, count){
           count.should.equal(3); //test of length

@@ -20,11 +20,12 @@ exports.editFood = function (req, res){
   function(err, item){
     if(err) {
       return res.status(500).json({
-        message: 'Internal Server Error'});
-      }
-      item.simpleDate = item.date.getFullYear() + '/' + (item.date.getMonth() + 1) + '/' + item.date.getDate();
-      res.render('pages/add-food', {item:item, username:req.user.username });
-    });
+        message: 'Internal Server Error'
+      });
+    }
+    item.simpleDate = item.date.getFullYear() + '/' + (item.date.getMonth() + 1) + '/' + item.date.getDate();
+    res.render('pages/add-food', {item:item, username:req.user.username });
+  });
 };
 
 exports.signUp = function (req, res){

@@ -48,11 +48,11 @@ exports.deleteMeal = function(req, res){
           message: 'Internal Server Error'
         });
       }
-      res.status(201).json(chosenItemID)
-    });
+    res.status(201).json(chosenItemID)
+  });
 };
 
-exports.report =  function(req, res){
-  var chosenMealToView = {meals: req.body}
-  res.json(chosenMealToView);
-};
+  exports.report =  function(req, res){
+    var chosenMealToView = {meals: req.body}
+    res.json(chosenMealToView);
+  };

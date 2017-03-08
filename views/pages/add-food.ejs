@@ -2,158 +2,158 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Add food page</title>
-  <% include ../partials/head %>
-  <link rel="stylesheet" href="../styles/addFood.css">
-</head>
-<body>
-  <div class="container">
-    <% include ../partials/header %>
-    <div class="jumbotron">
-      <form class="addFoodForm">
-        <h1>Add a Meal</h1>
-        <input type="text" class="form-control hidden" id="foodID" placeholder="" value="<%= item.id ? item.id : '' %>">
-        <div class="form-group">
-          <label for="foodName"><span class="text-muted">Food name and quantity</span></label>
-          <input type="text" name="name" class="form-control" id="foodInput" aria-describedby="emailHelp" placeholder="Ex. 1 apple" value="<%= item.name ? item.name : '' %>">
-        </div>
-        <div class="form-group">
-          <label class="control-label" for="date"><span class="text-muted">Date</span></label>
+  <head>
+    <title>Add food page</title>
+    <% include ../partials/head %>
+    <link rel="stylesheet" href="../styles/addFood.css">
+  </head>
+  <body>
+    <div class="container">
+      <% include ../partials/header %>
+      <div class="jumbotron">
+        <form class="addFoodForm">
+          <h1>Add a Meal</h1>
+          <input type="text" class="form-control hidden" id="foodID" placeholder="" value="<%= item.id ? item.id : '' %>">
+          <div class="form-group">
+            <label for="foodName"><span class="text-muted">Food name and quantity</span></label>
+            <input type="text" name="name" class="form-control" id="foodInput" aria-describedby="emailHelp" placeholder="Ex. 1 apple" value="<%= item.name ? item.name : '' %>">
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="date"><span class="text-muted">Date</span></label>
 
-          <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text" value="<%= item.simpleDate? item.simpleDate : '' %>"/>
-        </div>
-        <div class="form-group">
-          <label for="exampleSelect1"><span class="text-muted">Meal type</span></label>
-          <select class="form-control" id="mealType">
-            <option>Breakfast</option>
-            <option>Lunch</option>
-            <option>Dinner</option>
-            <option>Snack</option>
-          </select>
-        </div>
-        <button type="submit" id = "saveBtn" class="btn btn-lg btn-success">Save</button>
-      </form>
-      <div class="foodInfo">
-        <h1 id ="foodInfoTitle"></h1>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="card card-block">
-              <div class="infoTag" id="infoTag">
-                <section class="performance-facts">
-                  <header class="performance-facts__header">
-                    <h1 class="performance-facts__title">Nutrition Facts</h1>
-                    <h3 class="performance_facts_amount"></h3>
-                  </header>
-                  <table class="performance-facts__table">
-                    <thead>
-                      <tr>
-                        <th colspan="3" class="small-info" id="serving">
-                          Amount Per Serving
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th colspan="2">
-                          <b>Calories</b>
-                        </th>
-                        <td>
-                          <b id="calories"></b>
-                        </td>
-                      </tr>
-                      <tr class="thick-row">
-                        <th colspan="2">
-                          <b>Total Fat</b>
-                        </th>
-                        <td>
-                          <b id="total_fat"></b>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="blank-cell">
-                        </td>
-                        <th>
-                          <b>Saturated Fat</b>
-                        </th>
-                        <td>
-                          <b id="saturated_fat"></b>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th colspan="2">
-                          <b>Cholesterol</b>
-                        </th>
-                        <td>
-                          <b id="cholesterol"></b>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th colspan="2">
-                          <b>Sodium</b>
-                        </th>
-                        <td>
-                          <b id="sodium"></b>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th colspan="2">
-                          <b>Total Carbohydrate</b>
-                        </th>
-                        <td>
-                          <b id="total_carbs"></b>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="blank-cell">
-                        </td>
-                        <th>
-                          Dietary Fiber
-                        </th>
-                        <td>
-                          <b id="dietary_fiber"></b>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="blank-cell">
-                        </td>
-                        <th>
-                          Sugars
-                        </th>
-                        <td>
-                          <b id="sugar"></b>
-                        </td>
-                      </tr>
-                      <tr class="thick-end">
-                        <th colspan="2">
-                          <b>Protein</b>
-                        </th>
-                        <td>
-                          <b id="protein"></b>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </section>
+            <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text" value="<%= item.simpleDate? item.simpleDate : '' %>"/>
+          </div>
+          <div class="form-group">
+            <label for="exampleSelect1"><span class="text-muted">Meal type</span></label>
+            <select class="form-control" id="mealType">
+              <option>Breakfast</option>
+              <option>Lunch</option>
+              <option>Dinner</option>
+              <option>Snack</option>
+            </select>
+          </div>
+          <button type="submit" id = "saveBtn" class="btn btn-lg btn-success">Save</button>
+        </form>
+        <div class="foodInfo">
+          <h1 id ="foodInfoTitle"></h1>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="card card-block">
+                <div class="infoTag" id="infoTag">
+                  <section class="performance-facts">
+                    <header class="performance-facts__header">
+                      <h1 class="performance-facts__title">Nutrition Facts</h1>
+                      <h3 class="performance_facts_amount"></h3>
+                    </header>
+                    <table class="performance-facts__table">
+                      <thead>
+                        <tr>
+                          <th colspan="3" class="small-info" id="serving">
+                            Amount Per Serving
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th colspan="2">
+                            <b>Calories</b>
+                          </th>
+                          <td>
+                            <b id="calories"></b>
+                          </td>
+                        </tr>
+                        <tr class="thick-row">
+                          <th colspan="2">
+                            <b>Total Fat</b>
+                          </th>
+                          <td>
+                            <b id="total_fat"></b>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="blank-cell">
+                          </td>
+                          <th>
+                            <b>Saturated Fat</b>
+                          </th>
+                          <td>
+                            <b id="saturated_fat"></b>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th colspan="2">
+                            <b>Cholesterol</b>
+                          </th>
+                          <td>
+                            <b id="cholesterol"></b>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th colspan="2">
+                            <b>Sodium</b>
+                          </th>
+                          <td>
+                            <b id="sodium"></b>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th colspan="2">
+                            <b>Total Carbohydrate</b>
+                          </th>
+                          <td>
+                            <b id="total_carbs"></b>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="blank-cell">
+                          </td>
+                          <th>
+                            Dietary Fiber
+                          </th>
+                          <td>
+                            <b id="dietary_fiber"></b>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="blank-cell">
+                          </td>
+                          <th>
+                            Sugars
+                          </th>
+                          <td>
+                            <b id="sugar"></b>
+                          </td>
+                        </tr>
+                        <tr class="thick-end">
+                          <th colspan="2">
+                            <b>Protein</b>
+                          </th>
+                          <td>
+                            <b id="protein"></b>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-sm-6 foodInfoCol">
-            <div class="card card-block foodInfoSection">
-              <div id = "foodPhotoDiv">
-                <img id="foodPhoto" src="">
+            <div class="col-sm-6 foodInfoCol">
+              <div class="card card-block foodInfoSection">
+                <div id = "foodPhotoDiv">
+                  <img id="foodPhoto" >
+                </div>
+                <div id ="recommendationDiv"></div>
+                <a href="/user-home" class="btn btn-lg btn-success">Home</a>
               </div>
-              <div id ="recommendationDiv"></div>
-              <a href="/user-home" class="btn btn-lg btn-success">Home</a>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <footer>
-    <% include ../partials/footer %>
-  </footer>
-  <script type="text/javascript" src="../add-food.js"></script>
-</body>
+    <footer>
+      <% include ../partials/footer %>
+    </footer>
+    <script type="text/javascript" src="../add-food.js"></script>
+  </body>
 </html>

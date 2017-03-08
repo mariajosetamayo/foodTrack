@@ -33,7 +33,6 @@ app.use(session({
 
 router(app)
 
-
 // Function for running the server
 
 var runServer = function(callback) {
