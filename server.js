@@ -12,7 +12,7 @@ mongoose.Promise = global.Promise;
 // Middleware setup
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
-app.use(express.static('public');
+app.use(express.static('public'));
 app.use(session({
   secret: 'Maria Marcela Veronica Felicitas Emilia Ortiz Aveleyra Castillo Ortiz Mena',
   resave: false,
