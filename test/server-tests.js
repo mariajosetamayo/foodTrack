@@ -7,18 +7,14 @@ var server = require('../server.js');
 var Item = require('../models/food');
 var User = require('../models/users');
 
-
 var app = server.app;
-
 var should = chai.should();
 var app = server.app;
 var storage = server.storage;
 
 chai.use(chaiHttp);
-
 var request = require('supertest');
 var server2 = request.agent('http://localhost:3000');
-
 
 describe('main page', function(){
 
@@ -46,7 +42,6 @@ describe('main page', function(){
     });
   });
 });
-
 
 describe('login / logout tests:', function(){
 
@@ -87,6 +82,7 @@ describe('login / logout tests:', function(){
       done();
     });
   });
+
   it('login exp', function(done) {
     server2
     .post('/login')
@@ -110,8 +106,7 @@ describe('login / logout tests:', function(){
     .expect(200)
     .end(function(err, res){
       if (err) return done(err);
-      console.log(res.body);
-      res.should.have.status(200); // should style assertion says that the response should have a 200 status code
+      res.should.have.status(200);
       res.should.be.json;
       res.body.should.be.a('array');
       res.body.should.have.length(3);
@@ -152,14 +147,12 @@ describe('login / logout tests:', function(){
       res.body._id.should.be.a('string');
       res.body.name.should.equal('Kale');
       itemID=res.body._id;
-      // Test database
+
       Item.count({}, function( err, count){
         count.should.equal(4);
       })
       Item.findOne({name: 'Kale'},
       function(err, items){
-        console.log("error"+ err)
-        console.log("items"+ items)
         items.name.should.equal('Kale');
         done();
       });
@@ -180,15 +173,13 @@ describe('login / logout tests:', function(){
       res.body.name.should.be.a('string');
       res.body._id.should.be.a('string');
       res.body.name.should.equal('carrot');
-      // tests database
       Item.count({}, function( err, count){
-        count.should.equal(4); //test del length
+        count.should.equal(4);
       });
-
       Item.findOne({_id: itemID},
         function(err, items){
           should.not.equal(items, null);
-          items.name.should.equal('carrot');  //find one and see if it updated
+          items.name.should.equal('carrot');
           done();
         });
       });
@@ -205,9 +196,8 @@ describe('login / logout tests:', function(){
         res.body.should.have.property('_id');
         res.body._id.should.be.a('string');
         res.body._id.should.equal(itemID);
-        //test db
         Item.count({}, function( err, count){
-          count.should.equal(3); //test of length
+          count.should.equal(3);
         })
         Item.findOne({_id: itemID},
         function(err, items){
@@ -221,11 +211,9 @@ describe('login / logout tests:', function(){
   var Browser = require('zombie');
   var assert = require('assert');
   var Url = require("url");
-
   Browser.localhost('example.com',3000);
 
   describe('User visits user-home', function(){
-
     var browser = new Browser ();
 
     before(function(done){

@@ -3,7 +3,6 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 
-
 exports.signup = function(req, res) {
   if (!req.body) {
     return res.status(400).json({
@@ -49,7 +48,7 @@ exports.signup = function(req, res) {
   password = password.trim();
 
   // Password hashing
-  bcrypt.genSalt(10, function(err, salt) { 
+  bcrypt.genSalt(10, function(err, salt) {
     if (err) {
       return res.status(500).json({
         message: 'Internal server error'

@@ -14,7 +14,6 @@ module.exports = function(passport){
   });
 
   //Passport local strategy fetches user which matches username provided.
-
   passport.use(new LocalStrategy(
     function(username, password, done) {
       User.findOne({ username: username }, function (err, user) {
@@ -35,4 +34,5 @@ module.exports = function(passport){
       });
     }
   ));
+  
 }

@@ -1,4 +1,3 @@
-
 /////// Variables to obtain elements from the DOM ////////
 
 var mealsTableTitle = $('#mealsTableTitle');
@@ -7,7 +6,6 @@ var mealsTableBody = $('#mealsTableBody');
 var reportTableBody = $('#reportTableBody');
 
 ////// Functions to create a report that adds the nutrients for all the meals consumed/registered in one day /////////
-
 var obtainValuesForNutrients = function(res){
   var nutrientValuesForAllMeals = res.map(function(item){
     for (var i = 0; i< item.nutrients[0].foods[0].full_nutrients.length; i++){
@@ -43,7 +41,7 @@ var obtainValuesForNutrients = function(res){
         var phenilananine = {nutrient: 'Phenylananine', value: nutrient.value, units: 'g'};
       }
       if(nutrientID === 509){
-        var tyrosine = {nutrient: 'Tyrosine', value: nutrient.value, units: 'g'}; 
+        var tyrosine = {nutrient: 'Tyrosine', value: nutrient.value, units: 'g'};
       }
       if(nutrientID === 510){
         var valine = {nutrient: 'Valine', value: nutrient.value, units: 'g'};
@@ -76,10 +74,10 @@ var obtainValuesForNutrients = function(res){
     micronutrientsValuesArray.push(calories,carbohydrates,proteins,sodium,totalFat,sugar,phosphorus,transFat,saturatedFat,calcium,potassium,vitaminD,phenilananine,tyrosine,valine,arginine,histiadine,alanine,asparticAcid,glutamicAcid,glycine,proline,serine);
     return micronutrientsValuesArray;
   });
-  addNutrientsforAllMeals(nutrientValuesForAllMeals);
+  addNutrientsForAllMeals(nutrientValuesForAllMeals);
 };
 
-var addNutrientsforAllMeals = function (nutrientValuesForAllMeals){
+var addNutrientsForAllMeals = function (nutrientValuesForAllMeals){
   var nutrientsInformationArray = []
   for (var i = 0; i < 23; i++) {
     nutrientsInformationArray.push({
@@ -100,7 +98,6 @@ var addNutrientsforAllMeals = function (nutrientValuesForAllMeals){
 
 
 ////// Requests to server.js///////
-
 var getDatesOfMeals = function() {
   var ajax = $.ajax('/getReport/' + window.location.href.split("/")[window.location.href.split("/").length - 1], {
     type: 'GET',
@@ -123,7 +120,6 @@ var onDeleteMeal = function(id) {
 };
 
 ////// Functions to display elements in DOM //////
-
 var appendTitleToTables = function(){
   mealsTableTitle.text('Meals for the' + ' ' + window.location.href.split("/")[window.location.href.split("/").length - 1]);
   reportTableTitle.text('Report for the' + ' ' + window.location.href.split("/")[window.location.href.split("/").length - 1]);
@@ -143,9 +139,7 @@ var appendValuesToReportTable = function(totalNutrients){
   };
 };
 
-
 ////// Event Listeners ///////
-
 mealsTableBody.on('click','.remove', function(event){
   event.preventDefault();
   var mealClickedToRemove = $(this).closest('tr').attr('id');

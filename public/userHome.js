@@ -1,10 +1,7 @@
-
 ////// Variables to obtain elements from the DOM /////
-
 var tableOfdiaryEntriesByDate = $('#diaryDates');
 
 ////// Methods to check for unique values of dates //////
-
 Array.prototype.contains = function(v) {
   for(var i = 0; i < this.length; i++) {
     if(this[i] === v) return true;
@@ -23,7 +20,6 @@ Array.prototype.unique = function() {
 };
 
 ////// Requests to server.js //////
-
 var getDatesOfMeals = function() {
   var ajax = $.ajax('/meals', {
     type: 'GET',
@@ -49,7 +45,6 @@ var saveSelectedDate = function(data){
 };
 
 ////// Functions to display elements in DOM //////
-
 var appendDiaryDatesToTable = function (dates){
   dates.sort();
   for(var i = 0; i<dates.length; i++){
@@ -61,7 +56,6 @@ var appendDiaryDatesToTable = function (dates){
 };
 
 ///// Event Listeners //////
-
 $(document).ready(function(){
   getDatesOfMeals();
 });

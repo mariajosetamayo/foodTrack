@@ -1,7 +1,6 @@
 $(document).ready(function(){
 
   /////// Variables to obtain elements from the DOM ///////
-
   var userNameInput = $('#inputName');
   var userEmailInput = $('#inputEmail');
   var userPasswordInput = $('#inputPassword');
@@ -14,11 +13,10 @@ $(document).ready(function(){
   var learnMoreButton = $('#learnMoreButton');
 
   ////// Requests ///////
-
   var onSignUp = function (username, password){
     username = userNameInput.val();
     password = userPasswordInput.val();
-    var newUser = {'username':username, 'password': password};
+    var newUser = {'username': username, 'password': password};
     var ajax = $.ajax('/signup', {
       type: 'POST',
       data: JSON.stringify(newUser),
@@ -33,7 +31,7 @@ $(document).ready(function(){
   var onSignIn = function (username, password){
     username = signinEmail.val();
     password = signinPassword.val();
-    var existingUser = {'username': username, 'password':password};
+    var existingUser = {'username': username, 'password': password};
 
     var ajax = $.ajax('/login', {
       type: 'POST',
@@ -46,29 +44,25 @@ $(document).ready(function(){
         window.location.href = "/user-home"
       }
       else{
-        console.log("error")
+        console.log("error signing in")
       }
     });
   };
 
   ////// Event Listeners ///////
 
+  // Using jQuery's animate() method to add smooth page scroll
+  // With 2000 milliseconds it takes to scroll to the specified area
   learnMoreButton.click(function(event){
     event.preventDefault();
-    if (this.hash !== "") {
-      // Prevent default anchor click behavior
+    if (this.hash !== "") { // hash is an #id on the page.
       event.preventDefault();
-
-      // Store hash
       var hash = this.hash;
 
-      // Using jQuery's animate() method to add smooth page scroll
-      // The optional number (2000) specifies the number of milliseconds it takes to scroll to the specified area
       $('html, body').animate({
         scrollTop: $(hash).offset().top
       }, 2000, function(){
-
-        // Add hash (#) to URL when done scrolling (default click behavior)
+        
         window.location.hash = hash;
       });
     }

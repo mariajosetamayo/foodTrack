@@ -1,4 +1,3 @@
-
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
@@ -8,39 +7,28 @@ var router = require('./routes');
 var strategy = require('./services/passport')(passport);
 var app = express();
 var session = require('express-session')
-
-// set the view engine to ejs
-
-app.set('view engine', 'ejs');
-
 mongoose.Promise = global.Promise;
 
 // Middleware setup
-
+app.set('view engine', 'ejs');
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/public/scripts'));
-app.use(express.static(__dirname + '/public/styles'));
-app.use(express.static(__dirname + '/public'));
+app.use(express.static('public');
 app.use(session({
-    secret: 'Maria Marcela Veronica Felicitas Emilia Ortiz Aveleyra Castillo Ortiz Mena',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 2628000000 },
-  })
+  secret: 'Maria Marcela Veronica Felicitas Emilia Ortiz Aveleyra Castillo Ortiz Mena',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 2628000000 },
+})
 );
 
 // Load routes and pass in our app
-
-router(app)
-
-// Function for running the server
+router(app);
 
 var runServer = function(callback) {
   mongoose.connect(config.DATABASE_URL, function(err) {
     if (err && callback) {
       return callback(err);
     }
-
     app.listen(config.PORT, function() {
       if (callback) {
         callback();

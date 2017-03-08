@@ -1,4 +1,3 @@
-
 ///// Variables to obtain elements from the DOM ///////
 
 var foodNameEnteredByUser = $('#foodInput');
@@ -46,7 +45,6 @@ function requestFoodInformationFromNutritionix(mealData){
     "query": searchTerm,
     "timezone": "US/Eastern",
   };
-
   $.ajax({
     url: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
     type: 'POST',
@@ -58,7 +56,6 @@ function requestFoodInformationFromNutritionix(mealData){
     },
     dataType: 'json',
     success: function (data) {
-      console.info(data); // Console.logs to show object returned by nutritionix
       mealData.nutrients=data;
       onSaveMeal(mealData)
       showNutritionalValue(data);
@@ -66,11 +63,8 @@ function requestFoodInformationFromNutritionix(mealData){
       showRecomendation(isRecommended);
     },
     error: function (request, status, error) {
-      // Console.logs to get error information
       titleOfFoodInformationContainer.text('Sorry! We could not find this food item in our database');
-      console.log(request.responseText);
-      console.log(error);
-      console.log(status);
+      console.log(request.responseText, status, error);
     },
   });
 };
@@ -91,7 +85,8 @@ function isFoodRecommended(data){
     }
   };
 
-  if ((data.foods[0].nf_total_carbohydrate>=60) || (data.foods[0].nf_calories> 200) || (data.foods[0].serving_weight_grams<15 && data.foods[0].nf_calories> 30) || (data.foods[0].nf_saturated_fat>3) || (transFat>0) || (data.foods[0].serving_weight_grams<15 && data.foods[0].nf_calories> 30) || (data.foods[0].nf_sodium>=200) || (data.foods[0].serving_weight_grams<15 && data.foods[0].nf_sugars> 3) || (data.foods[0].serving_weight_grams>15 && data.foods[0].nf_sugars> 6)){
+  var firstMeal =  data.foods[0];
+  if ((firstMeal.nf_total_carbohydrate>=60) || (firstMeal.nf_calories> 200) || (firstMeal.serving_weight_grams<15 && firstMeal.nf_calories> 30) || (firstMeal.nf_saturated_fat>3) || (transFat>0) || (firstMeal.serving_weight_grams<15 && firstMeal.nf_calories> 30) || (firstMeal.nf_sodium>=200) || (firstMeal.serving_weight_grams<15 && firstMeal.nf_sugars> 3) || (firstMeal.serving_weight_grams>15 && firstMeal.nf_sugars> 6)){
     foodIsRecommended = false;
   };
   return foodIsRecommended;
@@ -100,21 +95,21 @@ function isFoodRecommended(data){
 ////// Functions to display data on DOM //////
 
 function showNutritionalValue(data){
-  savedFoodPhoto.attr('src', data.foods[0].photo.thumb);
-  titleOfFoodInformationContainer.text('Information for' + ' ' + data.foods[0].food_name);
+  var firstMeal = data.foods[0];
+  savedFoodPhoto.attr('src', firstMeal.photo.thumb);
+  titleOfFoodInformationContainer.text('Information for' + ' ' + firstMeal.food_name);
 
   // Nutritional table information fields
-
-  foodPortionFieldNutritionTable.text(data.foods[0].serving_weight_grams + " grams");
-  caloriesFieldNutritionTable.text(data.foods[0].nf_calories + " Kcal");
-  totalFatFieldNutritionTable.text(data.foods[0].nf_total_fat + " g");
-  saturatedFatFieldNutritionTable.text(data.foods[0].nf_saturated_fat + " g");
-  cholesterolFieldNutritionTable.text(data.foods[0].nf_cholesterol + "mg");
-  sodiumFieldTableNutritionTable.text(data.foods[0].nf_sodium + " mg");
-  carbohydratesFieldNutritionTable.text(data.foods[0].nf_total_carbohydrate + " g");
-  fiberFieldNutritionTable.text(data.foods[0].nf_dietary_fiber + " g");
-  sugarFieldNutritionTable.text(data.foods[0].nf_sugars + " g");
-  proteinFieldNutritionTable.text(data.foods[0].nf_protein + " g");
+  foodPortionFieldNutritionTable.text(firstMeal.serving_weight_grams + " grams");
+  caloriesFieldNutritionTable.text(firstMeal.nf_calories + " Kcal");
+  totalFatFieldNutritionTable.text(firstMeal.nf_total_fat + " g");
+  saturatedFatFieldNutritionTable.text(firstMeal.nf_saturated_fat + " g");
+  cholesterolFieldNutritionTable.text(firstMeal.nf_cholesterol + "mg");
+  sodiumFieldTableNutritionTable.text(firstMeal.nf_sodium + " mg");
+  carbohydratesFieldNutritionTable.text(firstMeal.nf_total_carbohydrate + " g");
+  fiberFieldNutritionTable.text(firstMeal.nf_dietary_fiber + " g");
+  sugarFieldNutritionTable.text(firstMeal.nf_sugars + " g");
+  proteinFieldNutritionTable.text(firstMeal.nf_protein + " g");
 }
 
 function showRecomendation(foodIsRecommended){
@@ -135,7 +130,7 @@ var datesCalendarToSelectDate = {
   autoclose: true,
 };
 
-/////// Events Listeners ///////
+/////// Event Listeners ///////
 
 saveMealButton.click(function(event){
   event.preventDefault();

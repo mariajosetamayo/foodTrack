@@ -24,7 +24,7 @@ exports.editFood = function (req, res){
       });
     }
     item.simpleDate = item.date.getFullYear() + '/' + (item.date.getMonth() + 1) + '/' + item.date.getDate();
-    res.render('pages/add-food', {item:item, username:req.user.username });
+    res.render('pages/add-food', { item:item, username:req.user.username });
   });
 };
 
@@ -37,7 +37,7 @@ exports.report = function (req, res) {
 };
 
 exports.reportDate = function(req, res){
-  var oneDayAfter = new Date(req.params.date); // set format for date
+  var oneDayAfter = new Date(req.params.date);
   oneDayAfter.setDate(oneDayAfter.getDate() + 1); // assign variable the value of the day after the date request
   Item.find({username: req.user.username, date : {$gte : new Date(req.params.date), $lt : new Date(oneDayAfter)}}, function(err, foundMeals){ // here we query the db to find the entries that match the present day.
     // We know it is the present day because it has to be between 12am of request day and 12am on the next day
