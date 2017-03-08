@@ -57,3 +57,6 @@ if (require.main === module) {
     }
   });
 };
+
+exports.app = app;
+exports.runServer = runServer;
