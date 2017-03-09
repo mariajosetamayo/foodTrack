@@ -1,6 +1,7 @@
 body{
 	background-color: #333333;
 	color: white;
+	font-family: Muli, sans-serif;
 }
 
 .table{
@@ -40,4 +41,4 @@ a{
 	.titleTable{
     	margin-top: 40%;
 	}
-} 
+}
