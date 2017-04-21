@@ -1,6 +1,6 @@
-#FoodTrack
+# FoodTrack
 
-##Summary
+## Summary
 
 Use this application to keep track of what you eat, get recommendations based on the food's nutritional information, and get a daily report summarizing the name and quantity of the nutrients you consumed.
 
@@ -10,24 +10,24 @@ Use this application to keep track of what you eat, get recommendations based on
 
 <img src = "https://cloud.githubusercontent.com/assets/16930791/21409722/047c1e9a-c799-11e6-9f8b-a6a235929738.jpg" width="420"/> <img src = "https://cloud.githubusercontent.com/assets/16930791/21409724/0604f8c2-c799-11e6-9afe-9d5f07cf99a0.jpg" width = "400" height="275"/>
 
-##API
+## API
 
 The FoodTrack REST API requires authentication.
 
-###Title
+### Title
 
 Show all meals.
 
-###URL
+### URL
 /meals
 or
 /meals/:id
 
-###Methods
+### Methods
 
 GET, POST, PUT, DELETE
 
-###Example GET response
+### Example GET response
 
 ```
 [ { _id: '585b2498b6a5d3134aa97024',
@@ -51,7 +51,7 @@ GET, POST, PUT, DELETE
   ```
 
 
-###Example POST response
+### Example POST response
 ```
  { _id: 585b2499b6a5d3134aa97028,
   name: 'Kale',
@@ -61,7 +61,7 @@ GET, POST, PUT, DELETE
   nutrients: [] }
 ```
 
-##Technology used
+## Technology used
 
 - FoodTrack is built using the MEAN stack.
 - The front-end is built using Javascript.
@@ -71,6 +71,6 @@ GET, POST, PUT, DELETE
 - Unit tests use Mocha, Chai, Supertest, and Zombie.js.
 - FoodTrack uses the Nutritionix API for acquiring food information data.
 
-##Acknowledgments
+## Acknowledgments
 
 Special thanks to Nutritionix, whose API makes this app possible.
