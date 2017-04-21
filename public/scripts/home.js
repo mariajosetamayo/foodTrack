@@ -11,6 +11,7 @@ $(document).ready(function(){
   var accountStatus = $('#accountStatus');
   var firstDivIntroToFoodtrack = $('#firstDivIntroToFoodtrack');
   var learnMoreButton = $('#learnMoreButton');
+  var demoAccountButton = $('#demoAccountBtn')
 
   ////// Requests ///////
   var onSignUp = function (username, password){
@@ -49,6 +50,27 @@ $(document).ready(function(){
     });
   };
 
+  var onDemo = function (username, password){
+    username = 'demo';
+    password = 'demo';
+    var demoAccountUser = {'username': username, 'password': password};
+
+    var ajax = $.ajax('/login', {
+      type: 'POST',
+      data: JSON.stringify(demoAccountUser),
+      dataType: 'json',
+      contentType: 'application/json'
+    });
+    ajax.done(function(res){
+      if(res.message){
+        window.location.href = "/user-home"
+      }
+      else{
+        console.log("error signing in")
+      }
+    });
+  };
+
   ////// Event Listeners ///////
 
   // Using jQuery's animate() method to add smooth page scroll
@@ -62,7 +84,7 @@ $(document).ready(function(){
       $('html, body').animate({
         scrollTop: $(hash).offset().top
       }, 2000, function(){
-        
+
         window.location.hash = hash;
       });
     }
@@ -81,5 +103,10 @@ $(document).ready(function(){
     onSignIn();
     signinPassword.val('');
     signinEmail.val('');
+  });
+
+  demoAccountButton.click(function(event){
+    event.preventDefault();
+    onDemo();
   });
 });

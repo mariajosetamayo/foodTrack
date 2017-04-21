@@ -16,10 +16,6 @@ body{
 }
 
 .ui-datepicker {
-   /*background: #CDCDCD;
-   color: #EEE;
-   position: relative;
-   top: 7px;*/
   background-color: #fff;
   border: 1px solid #66AFE9;
   border-radius: 4px;

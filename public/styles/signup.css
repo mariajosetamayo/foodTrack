@@ -21,8 +21,8 @@ body {
   position: relative;
   height: auto;
   -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   padding: 10px;
   font-size: 16px;
 }
@@ -46,6 +46,12 @@ body {
 
 #signUpBtn a{
   color:white;
+  text-decoration: none;
+}
+
+#demoAccountBtn a{
+  color: white;
+  text-decoration: none;
 }
 
 #accountStatus{
