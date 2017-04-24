@@ -17,7 +17,6 @@ var request = require('supertest');
 var server2 = request.agent('http://localhost:3000');
 
 describe('main page', function(){
-
   before(function(done) {
     //Guarantees DB is connected BEFORE tests
     server.runServer(function() {
