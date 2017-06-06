@@ -68,10 +68,9 @@ exports.signup = function(req, res) {
       });
 
       user.save(function(err, user) {
-
         if (err) {
-          return res.status(500).json({
-            message: 'Internal server error'
+          return res.json({
+            error: 'Account already exists'
           });
         }
 

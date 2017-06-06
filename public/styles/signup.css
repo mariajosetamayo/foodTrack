@@ -57,3 +57,7 @@ body {
 #accountStatus{
   color: green;
 }
+
+#accountError{
+  color: red;
+}

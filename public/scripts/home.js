@@ -9,6 +9,7 @@ $(document).ready(function(){
   var signinEmail = $('#signinEmailInput');
   var signinPassword = $('#signinPasswordInput');
   var accountStatus = $('#accountStatus');
+  var accountError = $('#accountError')
   var firstDivIntroToFoodtrack = $('#firstDivIntroToFoodtrack');
   var learnMoreButton = $('#learnMoreButton');
   var demoAccountButton = $('#demoAccountBtn')
@@ -25,7 +26,14 @@ $(document).ready(function(){
       contentType: 'application/json'
     });
     ajax.done(function(res){
-      accountStatus.text('Your account was successfully created, please sign in');
+        if(res.error){
+          accountStatus.empty();
+          accountError.text('Account already exists. Please sign in or choose another username.');
+        }
+        else{
+          accountError.empty();
+          accountStatus.text('Your account was successfully created, please sign in.');
+        }
     });
   };
 
